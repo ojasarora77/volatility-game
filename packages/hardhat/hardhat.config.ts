@@ -151,6 +151,10 @@ const config: HardhatUserConfig = {
       url: "https://alfajores-forno.celo-testnet.org",
       accounts: [deployerPrivateKey],
     },
+    flareCoston2: {
+      url: "https://coston2-api.flare.network/ext/C/rpc",
+      accounts: [deployerPrivateKey],
+    },
   },
   // Configuration for harhdat-verify plugin
   etherscan: {

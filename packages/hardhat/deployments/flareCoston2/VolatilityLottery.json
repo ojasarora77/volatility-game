@@ -1,0 +1,921 @@
+{
+  "address": "0x5871286045582C2F98077BFfBE1D76442ECA4389",
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_ftsoRegistry",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "_randomProvider",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "_fdcHub",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_entryFee",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_volatilityThreshold",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_roundDuration",
+          "type": "uint256"
+        },
+        {
+          "internalType": "string",
+          "name": "_pricePairSymbol",
+          "type": "string"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "roundId",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "winner",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "JackpotWinnerSelected",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "roundId",
+          "type": "uint256"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "player",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "bool",
+          "name": "isHighVolatility",
+          "type": "bool"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "PredictionMade",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "roundId",
+          "type": "uint256"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "player",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "RewardClaimed",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "roundId",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "endPrice",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "volatility",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "bool",
+          "name": "isHighVolatility",
+          "type": "bool"
+        }
+      ],
+      "name": "RoundFinalized",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "roundId",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "startTime",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "startPrice",
+          "type": "uint256"
+        }
+      ],
+      "name": "RoundStarted",
+      "type": "event"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_roundId",
+          "type": "uint256"
+        }
+      ],
+      "name": "claimRewards",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "entryFee",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "fdcHub",
+      "outputs": [
+        {
+          "internalType": "contract IFdcHub",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "finalizeRound",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "ftsoRegistry",
+      "outputs": [
+        {
+          "internalType": "contract IFtsoRegistry",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "highVolatilityPlayers",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "lowVolatilityPlayers",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bool",
+          "name": "_isHighVolatility",
+          "type": "bool"
+        }
+      ],
+      "name": "makePrediction",
+      "outputs": [],
+      "stateMutability": "payable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        },
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "name": "predictions",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "isHighVolatility",
+          "type": "bool"
+        },
+        {
+          "internalType": "uint256",
+          "name": "amount",
+          "type": "uint256"
+        },
+        {
+          "internalType": "bool",
+          "name": "hasClaimed",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "pricePairSymbol",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "randomProvider",
+      "outputs": [
+        {
+          "internalType": "contract IRandomProvider",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "roundDuration",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "roundId",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "rounds",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "startTime",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "endTime",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "startPrice",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "endPrice",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "actualVolatility",
+          "type": "uint256"
+        },
+        {
+          "internalType": "bool",
+          "name": "isHighVolatility",
+          "type": "bool"
+        },
+        {
+          "internalType": "bool",
+          "name": "isFinalized",
+          "type": "bool"
+        },
+        {
+          "internalType": "uint256",
+          "name": "totalPot",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "highVolatilityPot",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "lowVolatilityPot",
+          "type": "uint256"
+        },
+        {
+          "internalType": "address",
+          "name": "jackpotWinner",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "startRound",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "volatilityThreshold",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "transactionHash": "0x85116ee6fbbca1787ada3fd00b6526b0fe2410f0354db8671097c02e5f1b61d8",
+  "receipt": {
+    "to": null,
+    "from": "0x81194315767d0524470ae715ca0284fC061C1e60",
+    "contractAddress": "0x5871286045582C2F98077BFfBE1D76442ECA4389",
+    "transactionIndex": 0,
+    "gasUsed": "1351685",
+    "logsBloom": "0x00020000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000400000000000000000000000000000000080000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000000000000000000000400000000080000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+    "blockHash": "0xbb5fd302121a5f7b034c1cd729eb9e5f5c4c54a0873ea5c994860b1bef5bf80b",
+    "transactionHash": "0x85116ee6fbbca1787ada3fd00b6526b0fe2410f0354db8671097c02e5f1b61d8",
+    "logs": [
+      {
+        "transactionIndex": 0,
+        "blockNumber": 17157017,
+        "transactionHash": "0x85116ee6fbbca1787ada3fd00b6526b0fe2410f0354db8671097c02e5f1b61d8",
+        "address": "0x1000000000000000000000000000000000000002",
+        "topics": [
+          "0xe7aa66356adbd5e839ef210626f6d8f6f72109c17fadf4c4f9ca82b315ae79b4"
+        ],
+        "data": "0x000000000000000000000000c738fdcde9cd2fbd72618d36ed71008b8d001ba4000000000000000000000000000000000000000000000000000000000000421a",
+        "logIndex": 0,
+        "blockHash": "0xbb5fd302121a5f7b034c1cd729eb9e5f5c4c54a0873ea5c994860b1bef5bf80b"
+      },
+      {
+        "transactionIndex": 0,
+        "blockNumber": 17157017,
+        "transactionHash": "0x85116ee6fbbca1787ada3fd00b6526b0fe2410f0354db8671097c02e5f1b61d8",
+        "address": "0x1000000000000000000000000000000000000002",
+        "topics": [
+          "0xe7aa66356adbd5e839ef210626f6d8f6f72109c17fadf4c4f9ca82b315ae79b4"
+        ],
+        "data": "0x000000000000000000000000d2a1bb23eb350814a30dd6f9de78bb2c8fdd9f1d00000000000000000000000000000000000000000000000000000000000067aa",
+        "logIndex": 1,
+        "blockHash": "0xbb5fd302121a5f7b034c1cd729eb9e5f5c4c54a0873ea5c994860b1bef5bf80b"
+      },
+      {
+        "transactionIndex": 0,
+        "blockNumber": 17157017,
+        "transactionHash": "0x85116ee6fbbca1787ada3fd00b6526b0fe2410f0354db8671097c02e5f1b61d8",
+        "address": "0x1000000000000000000000000000000000000002",
+        "topics": [
+          "0xe7aa66356adbd5e839ef210626f6d8f6f72109c17fadf4c4f9ca82b315ae79b4"
+        ],
+        "data": "0x0000000000000000000000006892bdbbb14e1c9bd46bf31e7bac94d038fc82a6000000000000000000000000000000000000000000000000000000000000422d",
+        "logIndex": 2,
+        "blockHash": "0xbb5fd302121a5f7b034c1cd729eb9e5f5c4c54a0873ea5c994860b1bef5bf80b"
+      },
+      {
+        "transactionIndex": 0,
+        "blockNumber": 17157017,
+        "transactionHash": "0x85116ee6fbbca1787ada3fd00b6526b0fe2410f0354db8671097c02e5f1b61d8",
+        "address": "0x1000000000000000000000000000000000000002",
+        "topics": [
+          "0xe7aa66356adbd5e839ef210626f6d8f6f72109c17fadf4c4f9ca82b315ae79b4"
+        ],
+        "data": "0x000000000000000000000000bd33bdff04c357f7fc019e72d0504c24cf4aa0100000000000000000000000000000000000000000000000000000000000008688",
+        "logIndex": 3,
+        "blockHash": "0xbb5fd302121a5f7b034c1cd729eb9e5f5c4c54a0873ea5c994860b1bef5bf80b"
+      },
+      {
+        "transactionIndex": 0,
+        "blockNumber": 17157017,
+        "transactionHash": "0x85116ee6fbbca1787ada3fd00b6526b0fe2410f0354db8671097c02e5f1b61d8",
+        "address": "0x1000000000000000000000000000000000000002",
+        "topics": [
+          "0xe7aa66356adbd5e839ef210626f6d8f6f72109c17fadf4c4f9ca82b315ae79b4"
+        ],
+        "data": "0x000000000000000000000000a90db6d10f856799b10ef2a77ebcbf460ac71e5200000000000000000000000000000000000000000000000000000000000024f3",
+        "logIndex": 4,
+        "blockHash": "0xbb5fd302121a5f7b034c1cd729eb9e5f5c4c54a0873ea5c994860b1bef5bf80b"
+      },
+      {
+        "transactionIndex": 0,
+        "blockNumber": 17157017,
+        "transactionHash": "0x85116ee6fbbca1787ada3fd00b6526b0fe2410f0354db8671097c02e5f1b61d8",
+        "address": "0x1000000000000000000000000000000000000002",
+        "topics": [
+          "0xe7aa66356adbd5e839ef210626f6d8f6f72109c17fadf4c4f9ca82b315ae79b4"
+        ],
+        "data": "0x0000000000000000000000000b162ca3acf3482d3357972e12d794434085d839000000000000000000000000000000000000000000000000000000000001410c",
+        "logIndex": 5,
+        "blockHash": "0xbb5fd302121a5f7b034c1cd729eb9e5f5c4c54a0873ea5c994860b1bef5bf80b"
+      }
+    ],
+    "blockNumber": 17157017,
+    "cumulativeGasUsed": "1351685",
+    "status": 1,
+    "byzantium": true
+  },
+  "args": [
+    "0xC4e9c78EA53db782E28f28Fdf80BaF59336B304d",
+    "0x7350F7E13dC7d59DED993132E51142CAd9A64367",
+    "0x48aC463d7975828989331F4De43341627b9c5f1D",
+    "1000000000000000000",
+    100,
+    600,
+    "BTC/USD"
+  ],
+  "numDeployments": 1,
+  "solcInputHash": "9e1cec373f8daf24f3ecd890759789d7",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.20+commit.a1b79de6\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_ftsoRegistry\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_randomProvider\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_fdcHub\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_entryFee\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_volatilityThreshold\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_roundDuration\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"_pricePairSymbol\",\"type\":\"string\"}],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"roundId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"winner\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"JackpotWinnerSelected\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"roundId\",\"type\":\"uint256\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"player\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"bool\",\"name\":\"isHighVolatility\",\"type\":\"bool\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"PredictionMade\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"roundId\",\"type\":\"uint256\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"player\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"RewardClaimed\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"roundId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"endPrice\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"volatility\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"bool\",\"name\":\"isHighVolatility\",\"type\":\"bool\"}],\"name\":\"RoundFinalized\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"roundId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"startTime\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"startPrice\",\"type\":\"uint256\"}],\"name\":\"RoundStarted\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_roundId\",\"type\":\"uint256\"}],\"name\":\"claimRewards\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"entryFee\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"fdcHub\",\"outputs\":[{\"internalType\":\"contract IFdcHub\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"finalizeRound\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"ftsoRegistry\",\"outputs\":[{\"internalType\":\"contract IFtsoRegistry\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"highVolatilityPlayers\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"lowVolatilityPlayers\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bool\",\"name\":\"_isHighVolatility\",\"type\":\"bool\"}],\"name\":\"makePrediction\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"predictions\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"isHighVolatility\",\"type\":\"bool\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"},{\"internalType\":\"bool\",\"name\":\"hasClaimed\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"pricePairSymbol\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"randomProvider\",\"outputs\":[{\"internalType\":\"contract IRandomProvider\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"roundDuration\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"roundId\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"rounds\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"startTime\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"endTime\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"startPrice\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"endPrice\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"actualVolatility\",\"type\":\"uint256\"},{\"internalType\":\"bool\",\"name\":\"isHighVolatility\",\"type\":\"bool\"},{\"internalType\":\"bool\",\"name\":\"isFinalized\",\"type\":\"bool\"},{\"internalType\":\"uint256\",\"name\":\"totalPot\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"highVolatilityPot\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"lowVolatilityPot\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"jackpotWinner\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"startRound\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"volatilityThreshold\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"details\":\"A decentralized game where users bet on cryptocurrency price volatility Uses Flare's FTSO for price feeds, FDC for finalization, and RNG for winner selection\",\"kind\":\"dev\",\"methods\":{\"claimRewards(uint256)\":{\"details\":\"Claim rewards for a specific round\",\"params\":{\"_roundId\":\"The round to claim rewards for\"}},\"constructor\":{\"details\":\"Constructor to initialize the contract\",\"params\":{\"_entryFee\":\"Minimum amount of FLR to enter the lottery\",\"_fdcHub\":\"Address of the FDC Hub contract\",\"_ftsoRegistry\":\"Address of the FTSO Registry contract\",\"_pricePairSymbol\":\"Price pair to track (e.g., \\\"BTC/USD\\\")\",\"_randomProvider\":\"Address of the Random Provider contract\",\"_roundDuration\":\"Duration of each round in seconds\",\"_volatilityThreshold\":\"Threshold to determine high/low volatility in basis points\"}},\"finalizeRound()\":{\"details\":\"Finalize the current round Uses FDC Hub for finalized data and gets a random number for jackpot selection\"},\"makePrediction(bool)\":{\"details\":\"Make a prediction for the current round\",\"params\":{\"_isHighVolatility\":\"True if predicting high volatility, false otherwise\"}},\"startRound()\":{\"details\":\"Start a new lottery round\"}},\"title\":\"VolatilityLottery\",\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"contracts/VolatilityLottery.sol\":\"VolatilityLottery\"},\"evmVersion\":\"paris\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\",\"useLiteralContent\":true},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"@flarenetwork/flare-periphery-contracts/coston2/IFdcHub.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity >=0.7.6 <0.9;\\n\\nimport \\\"./IFdcInflationConfigurations.sol\\\";\\nimport \\\"./IFdcRequestFeeConfigurations.sol\\\";\\n\\n\\n/**\\n * FdcHub interface.\\n */\\ninterface IFdcHub  {\\n\\n    // Event emitted when an attestation request is made.\\n    event AttestationRequest(bytes data, uint256 fee);\\n\\n    // Event emitted when a requests offset is set.\\n    event RequestsOffsetSet(uint8 requestsOffsetSeconds);\\n\\n    /// Event emitted when inflation rewards are offered.\\n    event InflationRewardsOffered(\\n        // reward epoch id\\n        uint24 indexed rewardEpochId,\\n        // fdc configurations\\n        IFdcInflationConfigurations.FdcConfiguration[] fdcConfigurations,\\n        // amount (in wei) of reward in native coin\\n        uint256 amount\\n    );\\n\\n    /**\\n     * Method to request an attestation.\\n     * @param _data ABI encoded attestation request\\n     */\\n    function requestAttestation(bytes calldata _data) external payable;\\n\\n    /**\\n     * The offset (in seconds) for the requests to be processed during the current voting round.\\n     */\\n    function requestsOffsetSeconds() external view returns (uint8);\\n\\n    /**\\n     * The FDC inflation configurations contract.\\n     */\\n    function fdcInflationConfigurations() external view returns(IFdcInflationConfigurations);\\n\\n    /**\\n     * The FDC request fee configurations contract.\\n     */\\n    function fdcRequestFeeConfigurations() external view returns (IFdcRequestFeeConfigurations);\\n}\\n\",\"keccak256\":\"0xc5da8a1ec45a746ce6a7dcba8010cf2e422e42992d219bc4c46314884b1d888f\",\"license\":\"MIT\"},\"@flarenetwork/flare-periphery-contracts/coston2/IFdcInflationConfigurations.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity >=0.7.6 <0.9;\\n\\n\\n/**\\n * FdcInflationConfigurations interface.\\n */\\ninterface IFdcInflationConfigurations {\\n\\n    /// The FDC configuration struct.\\n\\n    struct FdcConfiguration {\\n        // attestation type\\n        bytes32 attestationType;\\n        // source\\n        bytes32 source;\\n        // inflation share for this configuration\\n        uint24 inflationShare;\\n        // minimal reward eligibility threshold in number of request\\n        uint8 minRequestsThreshold;\\n        // mode (additional settings interpreted on the client side off-chain)\\n        uint224 mode;\\n    }\\n\\n    /**\\n     * Returns the FDC configuration at `_index`.\\n     * @param _index The index of the FDC configuration.\\n     */\\n    function getFdcConfiguration(uint256 _index) external view returns(FdcConfiguration memory);\\n\\n    /**\\n     * Returns the FDC configurations.\\n     */\\n    function getFdcConfigurations() external view returns(FdcConfiguration[] memory);\\n}\\n\",\"keccak256\":\"0xa63ac03178c776d3909ae0ce2272de2d199e162804b30cd90dea470c026bfbac\",\"license\":\"MIT\"},\"@flarenetwork/flare-periphery-contracts/coston2/IFdcRequestFeeConfigurations.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity >=0.7.6 <0.9;\\n\\n\\n/**\\n * FdcRequestFeeConfigurations interface.\\n */\\ninterface IFdcRequestFeeConfigurations  {\\n\\n    // Event emitted when a type and source price is set.\\n    event TypeAndSourceFeeSet(bytes32 indexed attestationType, bytes32 indexed source, uint256 fee);\\n\\n    // Event emitted when a type and source price is removed.\\n    event TypeAndSourceFeeRemoved(bytes32 indexed attestationType, bytes32 indexed source);\\n\\n    /**\\n     * Method to get the base fee for an attestation request. It reverts if the request is not supported.\\n     * @param _data ABI encoded attestation request\\n     */\\n    function getRequestFee(bytes calldata _data) external view returns (uint256);\\n\\n}\\n\",\"keccak256\":\"0x1a7b44a0a5419173ade6906f51ab645bd18cb5b48b49f288bc353580f72e1da8\",\"license\":\"MIT\"},\"@flarenetwork/flare-periphery-contracts/coston2/IFtso.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity >=0.7.6 <0.9;\\n\\ninterface IFtso {\\n    enum PriceFinalizationType {\\n        // initial state\\n        NOT_FINALIZED,\\n        // median calculation used to find price\\n        WEIGHTED_MEDIAN,\\n        // low turnout - price calculated from median of trusted addresses\\n        TRUSTED_ADDRESSES,\\n        // low turnout + no votes from trusted addresses - price copied from previous epoch\\n        PREVIOUS_PRICE_COPIED,\\n        // price calculated from median of trusted addresses - triggered due to an exception\\n        TRUSTED_ADDRESSES_EXCEPTION,\\n        // previous price copied - triggered due to an exception\\n        PREVIOUS_PRICE_COPIED_EXCEPTION\\n    }\\n\\n    event PriceRevealed(\\n        address indexed voter, uint256 indexed epochId, uint256 price, uint256 timestamp,\\n        uint256 votePowerNat, uint256 votePowerAsset\\n    );\\n\\n    event PriceFinalized(\\n        uint256 indexed epochId, uint256 price, bool rewardedFtso,\\n        uint256 lowIQRRewardPrice, uint256 highIQRRewardPrice,\\n        uint256 lowElasticBandRewardPrice, uint256 highElasticBandRewardPrice, \\n        PriceFinalizationType finalizationType, uint256 timestamp\\n    );\\n\\n    event PriceEpochInitializedOnFtso(\\n        uint256 indexed epochId, uint256 endTime, uint256 timestamp\\n    );\\n\\n    event LowTurnout(\\n        uint256 indexed epochId,\\n        uint256 natTurnout,\\n        uint256 lowNatTurnoutThresholdBIPS,\\n        uint256 timestamp\\n    );\\n\\n    /**\\n     * @notice Returns if FTSO is active\\n     */\\n    function active() external view returns (bool);\\n\\n    /**\\n     * @notice Returns the FTSO symbol\\n     */\\n    function symbol() external view returns (string memory);\\n\\n    /**\\n     * @notice Returns current epoch id\\n     */\\n    function getCurrentEpochId() external view returns (uint256);\\n\\n    /**\\n     * @notice Returns id of the epoch which was opened for price submission at the specified timestamp\\n     * @param _timestamp            Timestamp as seconds from unix epoch\\n     */\\n    function getEpochId(uint256 _timestamp) external view returns (uint256);\\n    \\n    /**\\n     * @notice Returns random number of the specified epoch\\n     * @param _epochId              Id of the epoch\\n     */\\n    function getRandom(uint256 _epochId) external view returns (uint256);\\n\\n    /**\\n     * @notice Returns asset price consented in specific epoch\\n     * @param _epochId              Id of the epoch\\n     * @return Price in USD multiplied by ASSET_PRICE_USD_DECIMALS\\n     */\\n    function getEpochPrice(uint256 _epochId) external view returns (uint256);\\n\\n    /**\\n     * @notice Returns current epoch data\\n     * @return _epochId                 Current epoch id\\n     * @return _epochSubmitEndTime      End time of the current epoch price submission as seconds from unix epoch\\n     * @return _epochRevealEndTime      End time of the current epoch price reveal as seconds from unix epoch\\n     * @return _votePowerBlock          Vote power block for the current epoch\\n     * @return _fallbackMode            Current epoch in fallback mode - only votes from trusted addresses will be used\\n     * @dev half-closed intervals - end time not included\\n     */\\n    function getPriceEpochData() external view returns (\\n        uint256 _epochId,\\n        uint256 _epochSubmitEndTime,\\n        uint256 _epochRevealEndTime,\\n        uint256 _votePowerBlock,\\n        bool _fallbackMode\\n    );\\n\\n    /**\\n     * @notice Returns current epoch data\\n     * @return _firstEpochStartTs           First epoch start timestamp\\n     * @return _submitPeriodSeconds         Submit period in seconds\\n     * @return _revealPeriodSeconds         Reveal period in seconds\\n     */\\n    function getPriceEpochConfiguration() external view returns (\\n        uint256 _firstEpochStartTs,\\n        uint256 _submitPeriodSeconds,\\n        uint256 _revealPeriodSeconds\\n    );\\n    \\n    /**\\n     * @notice Returns asset price submitted by voter in specific epoch\\n     * @param _epochId              Id of the epoch\\n     * @param _voter                Address of the voter\\n     * @return Price in USD multiplied by ASSET_PRICE_USD_DECIMALS\\n     */\\n    function getEpochPriceForVoter(uint256 _epochId, address _voter) external view returns (uint256);\\n\\n    /**\\n     * @notice Returns current asset price\\n     * @return _price               Price in USD multiplied by ASSET_PRICE_USD_DECIMALS\\n     * @return _timestamp           Time when price was updated for the last time\\n     */\\n    function getCurrentPrice() external view returns (uint256 _price, uint256 _timestamp);\\n\\n    /**\\n     * @notice Returns current asset price and number of decimals\\n     * @return _price                   Price in USD multiplied by ASSET_PRICE_USD_DECIMALS\\n     * @return _timestamp               Time when price was updated for the last time\\n     * @return _assetPriceUsdDecimals   Number of decimals used for USD price\\n     */\\n    function getCurrentPriceWithDecimals() external view returns (\\n        uint256 _price,\\n        uint256 _timestamp,\\n        uint256 _assetPriceUsdDecimals\\n    );\\n    \\n    /**\\n     * @notice Returns current asset price calculated from trusted providers\\n     * @return _price               Price in USD multiplied by ASSET_PRICE_USD_DECIMALS\\n     * @return _timestamp           Time when price was updated for the last time\\n     */\\n    function getCurrentPriceFromTrustedProviders() external view returns (uint256 _price, uint256 _timestamp);\\n\\n    /**\\n     * @notice Returns current asset price calculated from trusted providers and number of decimals\\n     * @return _price                   Price in USD multiplied by ASSET_PRICE_USD_DECIMALS\\n     * @return _timestamp               Time when price was updated for the last time\\n     * @return _assetPriceUsdDecimals   Number of decimals used for USD price\\n     */\\n    function getCurrentPriceWithDecimalsFromTrustedProviders() external view returns (\\n        uint256 _price,\\n        uint256 _timestamp,\\n        uint256 _assetPriceUsdDecimals\\n    );\\n\\n    /**\\n     * @notice Returns current asset price details\\n     * @return _price                                   Price in USD multiplied by ASSET_PRICE_USD_DECIMALS\\n     * @return _priceTimestamp                          Time when price was updated for the last time\\n     * @return _priceFinalizationType                   Finalization type when price was updated for the last time\\n     * @return _lastPriceEpochFinalizationTimestamp     Time when last price epoch was finalized\\n     * @return _lastPriceEpochFinalizationType          Finalization type of last finalized price epoch\\n     */\\n    function getCurrentPriceDetails() external view returns (\\n        uint256 _price,\\n        uint256 _priceTimestamp,\\n        PriceFinalizationType _priceFinalizationType,\\n        uint256 _lastPriceEpochFinalizationTimestamp,\\n        PriceFinalizationType _lastPriceEpochFinalizationType\\n    );\\n\\n    /**\\n     * @notice Returns current random number\\n     */\\n    function getCurrentRandom() external view returns (uint256);\\n}\\n\",\"keccak256\":\"0xfae54442fb489dccc5f0a0a6f8d946c9fdebceece98fcb087c5998fa1363ff30\",\"license\":\"MIT\"},\"@flarenetwork/flare-periphery-contracts/coston2/IFtsoRegistry.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity >=0.7.6 <0.9;\\npragma abicoder v2;\\n\\nimport \\\"./ftso/interface/IIFtso.sol\\\";\\nimport \\\"./genesis/interface/IFtsoRegistryGenesis.sol\\\";\\n\\ninterface IFtsoRegistry is IFtsoRegistryGenesis {\\n\\n    struct PriceInfo {\\n        uint256 ftsoIndex;\\n        uint256 price;\\n        uint256 decimals;\\n        uint256 timestamp;\\n    }\\n\\n    function getFtso(uint256 _ftsoIndex) external view returns(IIFtso _activeFtsoAddress);\\n    function getFtsoBySymbol(string memory _symbol) external view returns(IIFtso _activeFtsoAddress);\\n    function getSupportedIndices() external view returns(uint256[] memory _supportedIndices);\\n    function getSupportedSymbols() external view returns(string[] memory _supportedSymbols);\\n    function getSupportedFtsos() external view returns(IIFtso[] memory _ftsos);\\n    function getFtsoIndex(string memory _symbol) external view returns (uint256 _assetIndex);\\n    function getFtsoSymbol(uint256 _ftsoIndex) external view returns (string memory _symbol);\\n    function getCurrentPrice(uint256 _ftsoIndex) external view returns(uint256 _price, uint256 _timestamp);\\n    function getCurrentPrice(string memory _symbol) external view returns(uint256 _price, uint256 _timestamp);\\n    function getCurrentPriceWithDecimals(uint256 _assetIndex) external view\\n        returns(uint256 _price, uint256 _timestamp, uint256 _assetPriceUsdDecimals);\\n    function getCurrentPriceWithDecimals(string memory _symbol) external view\\n        returns(uint256 _price, uint256 _timestamp, uint256 _assetPriceUsdDecimals);\\n\\n    function getAllCurrentPrices() external view returns (PriceInfo[] memory);\\n    function getCurrentPricesByIndices(uint256[] memory _indices) external view returns (PriceInfo[] memory);\\n    function getCurrentPricesBySymbols(string[] memory _symbols) external view returns (PriceInfo[] memory);\\n\\n    function getSupportedIndicesAndFtsos() external view \\n        returns(uint256[] memory _supportedIndices, IIFtso[] memory _ftsos);\\n\\n    function getSupportedSymbolsAndFtsos() external view \\n        returns(string[] memory _supportedSymbols, IIFtso[] memory _ftsos);\\n\\n    function getSupportedIndicesAndSymbols() external view \\n        returns(uint256[] memory _supportedIndices, string[] memory _supportedSymbols);\\n\\n    function getSupportedIndicesSymbolsAndFtsos() external view \\n        returns(uint256[] memory _supportedIndices, string[] memory _supportedSymbols, IIFtso[] memory _ftsos);\\n}\\n\",\"keccak256\":\"0x62f43ca205b3547e6116914138ff189dc714423ebe4df18c549768a41889e6ca\",\"license\":\"MIT\"},\"@flarenetwork/flare-periphery-contracts/coston2/IGovernanceVotePower.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity >=0.7.6 <0.9;\\n\\n/**\\n * Interface for contracts delegating their governance vote power.\\n */\\ninterface IGovernanceVotePower {\\n    /**\\n     * Delegates all governance vote power of `msg.sender` to address `_to`.\\n     * @param _to The address of the recipient.\\n     */\\n    function delegate(address _to) external;\\n\\n    /**\\n     * Undelegates all governance vote power of `msg.sender`.\\n     */\\n    function undelegate() external;\\n\\n    /**\\n     * Gets the governance vote power of an address at a given block number, including\\n     * all delegations made to it.\\n     * @param _who The address being queried.\\n     * @param _blockNumber The block number at which to fetch the vote power.\\n     * @return Governance vote power of `_who` at `_blockNumber`.\\n     */\\n    function votePowerOfAt(address _who, uint256 _blockNumber) external view returns(uint256);\\n\\n    /**\\n     * Gets the governance vote power of an address at the latest block, including\\n     * all delegations made to it.\\n     * @param _who The address being queried.\\n     * @return Governance vote power of `account` at the lastest block.\\n     */\\n    function getVotes(address _who) external view returns (uint256);\\n\\n    /**\\n     * Gets the address an account is delegating its governance vote power to, at a given block number.\\n     * @param _who The address being queried.\\n     * @param _blockNumber The block number at which to fetch the address.\\n     * @return Address where `_who` was delegating its governance vote power at block `_blockNumber`.\\n     */\\n    function getDelegateOfAt(address _who, uint256 _blockNumber) external view returns (address);\\n\\n    /**\\n     * Gets the address an account is delegating its governance vote power to, at the latest block number.\\n     * @param _who The address being queried.\\n     * @return Address where `_who` is currently delegating its governance vote power.\\n     */\\n    function getDelegateOfAtNow(address _who) external view returns (address);\\n}\\n\",\"keccak256\":\"0xac45cb04eedb4f19533df4867eb6cd50874a55ef04d73f4d2dc3d3b7d3927e3c\",\"license\":\"MIT\"},\"@flarenetwork/flare-periphery-contracts/coston2/IPChainStakeMirror.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity >=0.7.6 <0.9;\\npragma abicoder v2;\\n\\nimport \\\"./IPChainVotePower.sol\\\";\\nimport \\\"./IPChainStakeMirrorVerifier.sol\\\";\\n\\n\\n/**\\n * Interface for the `PChainStakeMirror` contract.\\n */\\ninterface IPChainStakeMirror is IPChainVotePower {\\n\\n    /**\\n     * Event emitted when max updates per block is set.\\n     * @param maxUpdatesPerBlock new number of max updated per block\\n     */\\n    event MaxUpdatesPerBlockSet(uint256 maxUpdatesPerBlock);\\n\\n    /**\\n     * Event emitted when the stake is confirmed.\\n     * @param owner The address who opened the stake.\\n     * @param nodeId Node id to which the stake was added.\\n     * @param txHash Unique tx hash - keccak256(abi.encode(PChainStake.txId, PChainStake.inputAddress));\\n     * @param amountWei Stake amount (in wei).\\n     * @param pChainTxId P-chain transaction id.\\n     */\\n    event StakeConfirmed(\\n        address indexed owner,\\n        bytes20 indexed nodeId,\\n        bytes32 indexed txHash,\\n        uint256 amountWei,\\n        bytes32 pChainTxId\\n    );\\n\\n    /**\\n     * Event emitted when the stake has ended.\\n     * @param owner The address whose stake has ended.\\n     * @param nodeId Node id from which the stake was removed.\\n     * @param txHash Unique tx hash - keccak256(abi.encode(PChainStake.txId, PChainStake.inputAddress));\\n     * @param amountWei Stake amount (in wei).\\n     */\\n    event StakeEnded(\\n        address indexed owner,\\n        bytes20 indexed nodeId,\\n        bytes32 indexed txHash,\\n        uint256 amountWei\\n    );\\n\\n    /**\\n     * Event emitted when the stake was revoked.\\n     * @param owner The address whose stake has ended.\\n     * @param nodeId Node id from which the stake was removed.\\n     * @param txHash Unique tx hash - keccak256(abi.encode(PChainStake.txId, PChainStake.inputAddress));\\n     * @param amountWei Stake amount (in wei).\\n     */\\n    event StakeRevoked(\\n        address indexed owner,\\n        bytes20 indexed nodeId,\\n        bytes32 indexed txHash,\\n        uint256 amountWei\\n    );\\n\\n    /**\\n     * Method for P-chain stake mirroring using `PChainStake` data and Merkle proof.\\n     * @param _stakeData Information about P-chain stake.\\n     * @param _merkleProof Merkle proof that should be used to prove the P-chain stake.\\n     */\\n    function mirrorStake(\\n        IPChainStakeMirrorVerifier.PChainStake calldata _stakeData,\\n        bytes32[] calldata _merkleProof\\n    )\\n        external;\\n\\n    /**\\n     * Method for checking if active stake (stake start time <= block.timestamp < stake end time) was already mirrored.\\n     * @param _txId P-chain stake transaction id.\\n     * @param _inputAddress P-chain address that opened stake.\\n     * @return True if stake is active and mirrored.\\n     */\\n    function isActiveStakeMirrored(bytes32 _txId, bytes20 _inputAddress) external view returns(bool);\\n\\n    /**\\n     * Total amount of tokens at current block.\\n     * @return The current total amount of tokens.\\n     **/\\n    function totalSupply() external view returns (uint256);\\n\\n    /**\\n     * Total amount of tokens at a specific `_blockNumber`.\\n     * @param _blockNumber The block number when the totalSupply is queried.\\n     * @return The total amount of tokens at `_blockNumber`.\\n     **/\\n    function totalSupplyAt(uint _blockNumber) external view returns(uint256);\\n\\n    /**\\n     * Queries the token balance of `_owner` at current block.\\n     * @param _owner The address from which the balance will be retrieved.\\n     * @return The current balance.\\n     **/\\n    function balanceOf(address _owner) external view returns (uint256);\\n\\n    /**\\n     * Queries the token balance of `_owner` at a specific `_blockNumber`.\\n     * @param _owner The address from which the balance will be retrieved.\\n     * @param _blockNumber The block number when the balance is queried.\\n     * @return The balance at `_blockNumber`.\\n     **/\\n    function balanceOfAt(address _owner, uint _blockNumber) external view returns (uint256);\\n}\\n\",\"keccak256\":\"0x8c70a1ae9079bb9d29c8e2dde781f546b6cb621f0b7cc943b9cbcbd52718bb41\",\"license\":\"MIT\"},\"@flarenetwork/flare-periphery-contracts/coston2/IPChainStakeMirrorVerifier.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity >=0.7.6 <0.9;\\npragma abicoder v2;\\n\\n/**\\n * Interface with structure for P-chain stake mirror verifications.\\n */\\ninterface IPChainStakeMirrorVerifier {\\n\\n    /**\\n     * Structure describing the P-chain stake.\\n     */\\n    struct PChainStake {\\n        // Hash of the transaction on the underlying chain.\\n        bytes32 txId;\\n        // Type of the staking/delegation transaction: '0' for 'ADD_VALIDATOR_TX' and '1' for 'ADD_DELEGATOR_TX'.\\n        uint8 stakingType;\\n        // Input address that triggered the staking or delegation transaction.\\n        // See https://support.avax.network/en/articles/4596397-what-is-an-address for address definition for P-chain.\\n        bytes20 inputAddress;\\n        // NodeID to which staking or delegation is done.\\n        // For definitions, see https://github.com/ava-labs/avalanchego/blob/master/ids/node_id.go.\\n        bytes20 nodeId;\\n        // Start time of the staking/delegation in seconds (Unix epoch).\\n        uint64 startTime;\\n        // End time of the staking/delegation in seconds (Unix epoch).\\n        uint64 endTime;\\n        // Staked or delegated amount in Gwei (nano FLR).\\n        uint64 weight;\\n    }\\n}\\n\",\"keccak256\":\"0x1a1d0a1302b59249f9d2ca2700bb9759bc66bae73fe1c920cf4c20ac75b475fe\",\"license\":\"MIT\"},\"@flarenetwork/flare-periphery-contracts/coston2/IPChainVotePower.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity >=0.7.6 <0.9;\\n\\n/**\\n * Interface for the vote power part of the `PChainStakeMirror` contract.\\n */\\ninterface IPChainVotePower {\\n\\n    /**\\n     * Event triggered when a stake is confirmed or at the time it ends.\\n     * Definition: `votePowerFromTo(owner, nodeId)` is `changed` from `priorVotePower` to `newVotePower`.\\n     * @param owner The account that has changed the amount of vote power it is staking.\\n     * @param nodeId The node id whose received vote power has changed.\\n     * @param priorVotePower The vote power originally on that node id.\\n     * @param newVotePower The new vote power that triggered this event.\\n     */\\n    event VotePowerChanged(\\n        address indexed owner,\\n        bytes20 indexed nodeId,\\n        uint256 priorVotePower,\\n        uint256 newVotePower\\n    );\\n\\n    /**\\n     * Emitted when a vote power cache entry is created.\\n     * Allows history cleaners to track vote power cache cleanup opportunities off-chain.\\n     * @param nodeId The node id whose vote power has just been cached.\\n     * @param blockNumber The block number at which the vote power has been cached.\\n     */\\n    event VotePowerCacheCreated(bytes20 nodeId, uint256 blockNumber);\\n\\n    /**\\n    * Get the vote power of `_owner` at block `_blockNumber` using cache.\\n    *   It tries to read the cached value and if not found, reads the actual value and stores it in cache.\\n    *   Can only be used if _blockNumber is in the past, otherwise reverts.\\n    * @param _owner The node id to get voting power.\\n    * @param _blockNumber The block number at which to fetch.\\n    * @return Vote power of `_owner` at `_blockNumber`.\\n    */\\n    function votePowerOfAtCached(bytes20 _owner, uint256 _blockNumber) external returns(uint256);\\n\\n    /**\\n    * Get the total vote power at block `_blockNumber` using cache.\\n    *   It tries to read the cached value and if not found, reads the actual value and stores it in cache.\\n    *   Can only be used if `_blockNumber` is in the past, otherwise reverts.\\n    * @param _blockNumber The block number at which to fetch.\\n    * @return The total vote power at the block (sum of all accounts' vote powers).\\n    */\\n    function totalVotePowerAtCached(uint256 _blockNumber) external returns(uint256);\\n\\n    /**\\n     * Get the current total vote power.\\n     * @return The current total vote power (sum of all accounts' vote powers).\\n     */\\n    function totalVotePower() external view returns(uint256);\\n\\n    /**\\n    * Get the total vote power at block `_blockNumber`\\n    * @param _blockNumber The block number at which to fetch.\\n    * @return The total vote power at the block  (sum of all accounts' vote powers).\\n    */\\n    function totalVotePowerAt(uint _blockNumber) external view returns(uint256);\\n\\n    /**\\n     * Get the amounts and node ids being staked to by a vote power owner.\\n     * @param _owner The address being queried.\\n     * @return _nodeIds Array of node ids.\\n     * @return _amounts Array of staked amounts, for each node id.\\n     */\\n    function stakesOf(address _owner)\\n        external view\\n        returns (\\n            bytes20[] memory _nodeIds,\\n            uint256[] memory _amounts\\n        );\\n\\n    /**\\n     * Get the amounts and node ids being staked to by a vote power owner,\\n     * at a given block.\\n     * @param _owner The address being queried.\\n     * @param _blockNumber The block number being queried.\\n     * @return _nodeIds Array of node ids.\\n     * @return _amounts Array of staked amounts, for each node id.\\n     */\\n    function stakesOfAt(\\n        address _owner,\\n        uint256 _blockNumber\\n    )\\n        external view\\n        returns (\\n            bytes20[] memory _nodeIds,\\n            uint256[] memory _amounts\\n        );\\n\\n    /**\\n     * Get the current vote power of `_nodeId`.\\n     * @param _nodeId The node id to get voting power.\\n     * @return Current vote power of `_nodeId`.\\n     */\\n    function votePowerOf(bytes20 _nodeId) external view returns(uint256);\\n\\n    /**\\n    * Get the vote power of `_nodeId` at block `_blockNumber`\\n    * @param _nodeId The node id to get voting power.\\n    * @param _blockNumber The block number at which to fetch.\\n    * @return Vote power of `_nodeId` at `_blockNumber`.\\n    */\\n    function votePowerOfAt(bytes20 _nodeId, uint256 _blockNumber) external view returns(uint256);\\n\\n    /**\\n    * Get current staked vote power from `_owner` staked to `_nodeId`.\\n    * @param _owner Address of vote power owner.\\n    * @param _nodeId Node id.\\n    * @return The staked vote power.\\n    */\\n    function votePowerFromTo(address _owner, bytes20 _nodeId) external view returns(uint256);\\n\\n    /**\\n    * Get current staked vote power from `_owner` staked to `_nodeId` at `_blockNumber`.\\n    * @param _owner Address of vote power owner.\\n    * @param _nodeId Node id.\\n    * @param _blockNumber The block number at which to fetch.\\n    * @return The staked vote power.\\n    */\\n    function votePowerFromToAt(address _owner, bytes20 _nodeId, uint _blockNumber) external view returns(uint256);\\n\\n    /**\\n     * Return vote powers for several node ids in a batch.\\n     * @param _nodeIds The list of node ids to fetch vote power of.\\n     * @param _blockNumber The block number at which to fetch.\\n     * @return A list of vote powers.\\n     */\\n    function batchVotePowerOfAt(\\n        bytes20[] memory _nodeIds,\\n        uint256 _blockNumber\\n    ) external view returns(uint256[] memory);\\n}\\n\",\"keccak256\":\"0x23e31ef2ab9227795930728dc240fbe59f31f1b05e595ee137acc1e5e6e8497e\",\"license\":\"MIT\"},\"@flarenetwork/flare-periphery-contracts/coston2/IRandomProvider.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity >=0.7.6 <0.9;\\n\\n/**\\n * Random provider interface.\\n */\\ninterface IRandomProvider {\\n\\n\\n    /**\\n     * Returns current random number. Method reverts if random number was not generated securely.\\n     * @return _randomNumber Current random number.\\n     */\\n    function getCurrentRandom() external view returns(uint256 _randomNumber);\\n\\n    /**\\n     * Returns current random number and a flag indicating if it was securely generated.\\n     * It is up to the caller to decide whether to use the returned random number or not.\\n     * @return _randomNumber Current random number.\\n     * @return _isSecureRandom Indicates if current random number is secure.\\n     */\\n    function getCurrentRandomWithQuality() external view returns(uint256 _randomNumber, bool _isSecureRandom);\\n\\n    /**\\n     * Returns current random number, a flag indicating if it was securely generated and its timestamp.\\n     * It is up to the caller to decide whether to use the returned random number or not.\\n     * @return _randomNumber Current random number.\\n     * @return _isSecureRandom Indicates if current random number is secure.\\n     * @return _randomTimestamp Random timestamp.\\n     */\\n    function getCurrentRandomWithQualityAndTimestamp()\\n        external view\\n        returns(uint256 _randomNumber, bool _isSecureRandom, uint256 _randomTimestamp);\\n}\\n\",\"keccak256\":\"0x1dc9b6fbeb006270a1cc1a7503f50bcb81e113f3d8d441b820bdac02a9f4c8bf\",\"license\":\"MIT\"},\"@flarenetwork/flare-periphery-contracts/coston2/IVPContractEvents.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity >=0.7.6 <0.9;\\n\\ninterface IVPContractEvents {\\n    /**\\n     * Event triggered when an account delegates or undelegates another account. \\n     * Definition: `votePowerFromTo(from, to)` is `changed` from `priorVotePower` to `newVotePower`.\\n     * For undelegation, `newVotePower` is 0.\\n     *\\n     * Note: the event is always emitted from VPToken's `writeVotePowerContract`.\\n     */\\n    event Delegate(address indexed from, address indexed to, uint256 priorVotePower, uint256 newVotePower);\\n    \\n    /**\\n     * Event triggered only when account `delegator` revokes delegation to `delegatee`\\n     * for a single block in the past (typically the current vote block).\\n     *\\n     * Note: the event is always emitted from VPToken's `writeVotePowerContract` and/or `readVotePowerContract`.\\n     */\\n    event Revoke(address indexed delegator, address indexed delegatee, uint256 votePower, uint256 blockNumber);\\n}\\n\",\"keccak256\":\"0x651a2ff1d5c179b87259f564d02877ae496b236bd48f4813a4d815c25e2407cf\",\"license\":\"MIT\"},\"@flarenetwork/flare-periphery-contracts/coston2/IVPToken.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity >=0.7.6 <0.9;\\n\\nimport {IERC20} from \\\"@openzeppelin/contracts/token/ERC20/IERC20.sol\\\";\\nimport {IGovernanceVotePower} from \\\"./IGovernanceVotePower.sol\\\";\\nimport {IVPContractEvents} from \\\"./IVPContractEvents.sol\\\";\\n\\ninterface IVPToken is IERC20 {\\n    /**\\n     * @notice Delegate by percentage `_bips` of voting power to `_to` from `msg.sender`.\\n     * @param _to The address of the recipient\\n     * @param _bips The percentage of voting power to be delegated expressed in basis points (1/100 of one percent).\\n     *   Not cumulative - every call resets the delegation value (and value of 0 undelegates `to`).\\n     **/\\n    function delegate(address _to, uint256 _bips) external;\\n    \\n    /**\\n     * @notice Undelegate all percentage delegations from the sender and then delegate corresponding \\n     *   `_bips` percentage of voting power from the sender to each member of `_delegatees`.\\n     * @param _delegatees The addresses of the new recipients.\\n     * @param _bips The percentages of voting power to be delegated expressed in basis points (1/100 of one percent).\\n     *   Total of all `_bips` values must be at most 10000.\\n     **/\\n    function batchDelegate(address[] memory _delegatees, uint256[] memory _bips) external;\\n        \\n    /**\\n     * @notice Explicitly delegate `_amount` of voting power to `_to` from `msg.sender`.\\n     * @param _to The address of the recipient\\n     * @param _amount An explicit vote power amount to be delegated.\\n     *   Not cumulative - every call resets the delegation value (and value of 0 undelegates `to`).\\n     **/    \\n    function delegateExplicit(address _to, uint _amount) external;\\n\\n    /**\\n    * @notice Revoke all delegation from sender to `_who` at given block. \\n    *    Only affects the reads via `votePowerOfAtCached()` in the block `_blockNumber`.\\n    *    Block `_blockNumber` must be in the past. \\n    *    This method should be used only to prevent rogue delegate voting in the current voting block.\\n    *    To stop delegating use delegate/delegateExplicit with value of 0 or undelegateAll/undelegateAllExplicit.\\n    * @param _who Address of the delegatee\\n    * @param _blockNumber The block number at which to revoke delegation.\\n    */\\n    function revokeDelegationAt(address _who, uint _blockNumber) external;\\n    \\n    /**\\n     * @notice Undelegate all voting power for delegates of `msg.sender`\\n     *    Can only be used with percentage delegation.\\n     *    Does not reset delegation mode back to NOTSET.\\n     **/\\n    function undelegateAll() external;\\n    \\n    /**\\n     * @notice Undelegate all explicit vote power by amount delegates for `msg.sender`.\\n     *    Can only be used with explicit delegation.\\n     *    Does not reset delegation mode back to NOTSET.\\n     * @param _delegateAddresses Explicit delegation does not store delegatees' addresses, \\n     *   so the caller must supply them.\\n     * @return The amount still delegated (in case the list of delegates was incomplete).\\n     */\\n    function undelegateAllExplicit(address[] memory _delegateAddresses) external returns (uint256);\\n\\n\\n    /**\\n     * @dev Should be compatible with ERC20 method\\n     */\\n    function name() external view returns (string memory);\\n\\n    /**\\n     * @dev Should be compatible with ERC20 method\\n     */\\n    function symbol() external view returns (string memory);\\n\\n    /**\\n     * @dev Should be compatible with ERC20 method\\n     */\\n    function decimals() external view returns (uint8);\\n    \\n\\n    /**\\n     * @notice Total amount of tokens at a specific `_blockNumber`.\\n     * @param _blockNumber The block number when the totalSupply is queried\\n     * @return The total amount of tokens at `_blockNumber`\\n     **/\\n    function totalSupplyAt(uint _blockNumber) external view returns(uint256);\\n\\n    /**\\n     * @dev Queries the token balance of `_owner` at a specific `_blockNumber`.\\n     * @param _owner The address from which the balance will be retrieved.\\n     * @param _blockNumber The block number when the balance is queried.\\n     * @return The balance at `_blockNumber`.\\n     **/\\n    function balanceOfAt(address _owner, uint _blockNumber) external view returns (uint256);\\n\\n    \\n    /**\\n     * @notice Get the current total vote power.\\n     * @return The current total vote power (sum of all accounts' vote powers).\\n     */\\n    function totalVotePower() external view returns(uint256);\\n    \\n    /**\\n    * @notice Get the total vote power at block `_blockNumber`\\n    * @param _blockNumber The block number at which to fetch.\\n    * @return The total vote power at the block  (sum of all accounts' vote powers).\\n    */\\n    function totalVotePowerAt(uint _blockNumber) external view returns(uint256);\\n\\n    /**\\n     * @notice Get the current vote power of `_owner`.\\n     * @param _owner The address to get voting power.\\n     * @return Current vote power of `_owner`.\\n     */\\n    function votePowerOf(address _owner) external view returns(uint256);\\n    \\n    /**\\n    * @notice Get the vote power of `_owner` at block `_blockNumber`\\n    * @param _owner The address to get voting power.\\n    * @param _blockNumber The block number at which to fetch.\\n    * @return Vote power of `_owner` at `_blockNumber`.\\n    */\\n    function votePowerOfAt(address _owner, uint256 _blockNumber) external view returns(uint256);\\n\\n    /**\\n    * @notice Get the vote power of `_owner` at block `_blockNumber`, ignoring revocation information (and cache).\\n    * @param _owner The address to get voting power.\\n    * @param _blockNumber The block number at which to fetch.\\n    * @return Vote power of `_owner` at `_blockNumber`. Result doesn't change if vote power is revoked.\\n    */\\n    function votePowerOfAtIgnoringRevocation(address _owner, uint256 _blockNumber) external view returns(uint256);\\n\\n    /**\\n     * @notice Get the delegation mode for '_who'. This mode determines whether vote power is\\n     *  allocated by percentage or by explicit value. Once the delegation mode is set, \\n     *  it never changes, even if all delegations are removed.\\n     * @param _who The address to get delegation mode.\\n     * @return delegation mode: 0 = NOTSET, 1 = PERCENTAGE, 2 = AMOUNT (i.e. explicit)\\n     */\\n    function delegationModeOf(address _who) external view returns(uint256);\\n        \\n    /**\\n    * @notice Get current delegated vote power `_from` delegator delegated `_to` delegatee.\\n    * @param _from Address of delegator\\n    * @param _to Address of delegatee\\n    * @return The delegated vote power.\\n    */\\n    function votePowerFromTo(address _from, address _to) external view returns(uint256);\\n    \\n    /**\\n    * @notice Get delegated the vote power `_from` delegator delegated `_to` delegatee at `_blockNumber`.\\n    * @param _from Address of delegator\\n    * @param _to Address of delegatee\\n    * @param _blockNumber The block number at which to fetch.\\n    * @return The delegated vote power.\\n    */\\n    function votePowerFromToAt(address _from, address _to, uint _blockNumber) external view returns(uint256);\\n    \\n    /**\\n     * @notice Compute the current undelegated vote power of `_owner`\\n     * @param _owner The address to get undelegated voting power.\\n     * @return The unallocated vote power of `_owner`\\n     */\\n    function undelegatedVotePowerOf(address _owner) external view returns(uint256);\\n    \\n    /**\\n     * @notice Get the undelegated vote power of `_owner` at given block.\\n     * @param _owner The address to get undelegated voting power.\\n     * @param _blockNumber The block number at which to fetch.\\n     * @return The undelegated vote power of `_owner` (= owner's own balance minus all delegations from owner)\\n     */\\n    function undelegatedVotePowerOfAt(address _owner, uint256 _blockNumber) external view returns(uint256);\\n    \\n    /**\\n    * @notice Get the vote power delegation `delegationAddresses` \\n    *  and `_bips` of `_who`. Returned in two separate positional arrays.\\n    * @param _who The address to get delegations.\\n    * @return _delegateAddresses Positional array of delegation addresses.\\n    * @return _bips Positional array of delegation percents specified in basis points (1/100 or 1 percent)\\n    * @return _count The number of delegates.\\n    * @return _delegationMode The mode of the delegation (NOTSET=0, PERCENTAGE=1, AMOUNT=2).\\n    */\\n    function delegatesOf(address _who)\\n        external view \\n        returns (\\n            address[] memory _delegateAddresses,\\n            uint256[] memory _bips,\\n            uint256 _count, \\n            uint256 _delegationMode\\n        );\\n        \\n    /**\\n    * @notice Get the vote power delegation `delegationAddresses` \\n    *  and `pcts` of `_who`. Returned in two separate positional arrays.\\n    * @param _who The address to get delegations.\\n    * @param _blockNumber The block for which we want to know the delegations.\\n    * @return _delegateAddresses Positional array of delegation addresses.\\n    * @return _bips Positional array of delegation percents specified in basis points (1/100 or 1 percent)\\n    * @return _count The number of delegates.\\n    * @return _delegationMode The mode of the delegation (NOTSET=0, PERCENTAGE=1, AMOUNT=2).\\n    */\\n    function delegatesOfAt(address _who, uint256 _blockNumber)\\n        external view \\n        returns (\\n            address[] memory _delegateAddresses, \\n            uint256[] memory _bips, \\n            uint256 _count, \\n            uint256 _delegationMode\\n        );\\n\\n    /**\\n     * Returns VPContract used for readonly operations (view methods).\\n     * The only non-view method that might be called on it is `revokeDelegationAt`.\\n     *\\n     * @notice `readVotePowerContract` is almost always equal to `writeVotePowerContract`\\n     * except during upgrade from one VPContract to a new version (which should happen\\n     * rarely or never and will be anounced before).\\n     *\\n     * @notice You shouldn't call any methods on VPContract directly, all are exposed\\n     * via VPToken (and state changing methods are forbidden from direct calls). \\n     * This is the reason why this method returns `IVPContractEvents` - it should only be used\\n     * for listening to events (`Revoke` only).\\n     */\\n    function readVotePowerContract() external view returns (IVPContractEvents);\\n\\n    /**\\n     * Returns VPContract used for state changing operations (non-view methods).\\n     * The only non-view method that might be called on it is `revokeDelegationAt`.\\n     *\\n     * @notice `writeVotePowerContract` is almost always equal to `readVotePowerContract`\\n     * except during upgrade from one VPContract to a new version (which should happen\\n     * rarely or never and will be anounced before). In the case of upgrade,\\n     * `writeVotePowerContract` will be replaced first to establish delegations, and\\n     * after some perio (e.g. after a reward epoch ends) `readVotePowerContract` will be set equal to it.\\n     *\\n     * @notice You shouldn't call any methods on VPContract directly, all are exposed\\n     * via VPToken (and state changing methods are forbidden from direct calls). \\n     * This is the reason why this method returns `IVPContractEvents` - it should only be used\\n     * for listening to events (`Delegate` and `Revoke` only).\\n     */\\n    function writeVotePowerContract() external view returns (IVPContractEvents);\\n    \\n    /**\\n     * When set, allows token owners to participate in governance voting\\n     * and delegate governance vote power.\\n     */\\n    function governanceVotePower() external view returns (IGovernanceVotePower);\\n}\\n\",\"keccak256\":\"0xa8755907f367ef19f960759730e3c17fa95b18ee01e38b98c82071805af21f2e\",\"license\":\"MIT\"},\"@flarenetwork/flare-periphery-contracts/coston2/ftso/interface/IIFtso.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity >=0.7.6 <0.9;\\n\\nimport \\\"../../genesis/interface/IFtsoGenesis.sol\\\";\\nimport \\\"../../IFtso.sol\\\";\\nimport \\\"../../token/interface/IIVPToken.sol\\\";\\n\\n\\ninterface IIFtso is IFtso, IFtsoGenesis {\\n\\n    /// function finalizePriceReveal\\n    /// called by reward manager only on correct timing.\\n    /// if price reveal period for epoch x ended. finalize.\\n    /// iterate list of price submissions\\n    /// find weighted median\\n    /// find adjucant 50% of price submissions.\\n    /// Allocate reward for any price submission which is same as a \\\"winning\\\" submission\\n    function finalizePriceEpoch(uint256 _epochId, bool _returnRewardData) external\\n        returns(\\n            address[] memory _eligibleAddresses,\\n            uint256[] memory _natWeights,\\n            uint256 _totalNatWeight\\n        );\\n\\n    function fallbackFinalizePriceEpoch(uint256 _epochId) external;\\n\\n    function forceFinalizePriceEpoch(uint256 _epochId) external;\\n\\n    // activateFtso will be called by ftso manager once ftso is added \\n    // before this is done, FTSO can't run\\n    function activateFtso(\\n        uint256 _firstEpochStartTs,\\n        uint256 _submitPeriodSeconds,\\n        uint256 _revealPeriodSeconds\\n    ) external;\\n\\n    function deactivateFtso() external;\\n\\n    // update initial price and timestamp - only if not active\\n    function updateInitialPrice(uint256 _initialPriceUSD, uint256 _initialPriceTimestamp) external;\\n\\n    function configureEpochs(\\n        uint256 _maxVotePowerNatThresholdFraction,\\n        uint256 _maxVotePowerAssetThresholdFraction,\\n        uint256 _lowAssetUSDThreshold,\\n        uint256 _highAssetUSDThreshold,\\n        uint256 _highAssetTurnoutThresholdBIPS,\\n        uint256 _lowNatTurnoutThresholdBIPS,\\n        uint256 _elasticBandRewardBIPS,\\n        uint256 _elasticBandWidthPPM,\\n        address[] memory _trustedAddresses\\n    ) external;\\n\\n    function setAsset(IIVPToken _asset) external;\\n\\n    function setAssetFtsos(IIFtso[] memory _assetFtsos) external;\\n\\n    // current vote power block will update per reward epoch. \\n    // the FTSO doesn't have notion of reward epochs.\\n    // reward manager only can set this data. \\n    function setVotePowerBlock(uint256 _blockNumber) external;\\n\\n    function initializeCurrentEpochStateForReveal(uint256 _circulatingSupplyNat, bool _fallbackMode) external;\\n  \\n    /**\\n     * @notice Returns ftso manager address\\n     */\\n    function ftsoManager() external view returns (address);\\n\\n    /**\\n     * @notice Returns the FTSO asset\\n     * @dev Asset is null in case of multi-asset FTSO\\n     */\\n    function getAsset() external view returns (IIVPToken);\\n\\n    /**\\n     * @notice Returns the Asset FTSOs\\n     * @dev AssetFtsos is not null only in case of multi-asset FTSO\\n     */\\n    function getAssetFtsos() external view returns (IIFtso[] memory);\\n\\n    /**\\n     * @notice Returns current configuration of epoch state\\n     * @return _maxVotePowerNatThresholdFraction        High threshold for native token vote power per voter\\n     * @return _maxVotePowerAssetThresholdFraction      High threshold for asset vote power per voter\\n     * @return _lowAssetUSDThreshold            Threshold for low asset vote power\\n     * @return _highAssetUSDThreshold           Threshold for high asset vote power\\n     * @return _highAssetTurnoutThresholdBIPS   Threshold for high asset turnout\\n     * @return _lowNatTurnoutThresholdBIPS      Threshold for low nat turnout\\n     * @return _elasticBandRewardBIPS           Hybrid reward band, where _elasticBandRewardBIPS goes to the \\n        elastic band (prices within _elasticBandWidthPPM of the median) \\n        and 10000 - elasticBandRewardBIPS to the IQR \\n     * @return _elasticBandWidthPPM             Prices within _elasticBandWidthPPM of median are rewarded\\n     * @return _trustedAddresses                Trusted addresses - use their prices if low nat turnout is not achieved\\n     */\\n    function epochsConfiguration() external view \\n        returns (\\n            uint256 _maxVotePowerNatThresholdFraction,\\n            uint256 _maxVotePowerAssetThresholdFraction,\\n            uint256 _lowAssetUSDThreshold,\\n            uint256 _highAssetUSDThreshold,\\n            uint256 _highAssetTurnoutThresholdBIPS,\\n            uint256 _lowNatTurnoutThresholdBIPS,\\n            uint256 _elasticBandRewardBIPS,\\n            uint256 _elasticBandWidthPPM,\\n            address[] memory _trustedAddresses\\n        );\\n\\n    /**\\n     * @notice Returns parameters necessary for approximately replicating vote weighting.\\n     * @return _assets                  the list of Assets that are accounted in vote\\n     * @return _assetMultipliers        weight of each asset in (multiasset) ftso, mutiplied by TERA\\n     * @return _totalVotePowerNat       total native token vote power at block\\n     * @return _totalVotePowerAsset     total combined asset vote power at block\\n     * @return _assetWeightRatio        ratio of combined asset vp vs. native token vp (in BIPS)\\n     * @return _votePowerBlock          vote powewr block for given epoch\\n     */\\n    function getVoteWeightingParameters() external view \\n        returns (\\n            IIVPToken[] memory _assets,\\n            uint256[] memory _assetMultipliers,\\n            uint256 _totalVotePowerNat,\\n            uint256 _totalVotePowerAsset,\\n            uint256 _assetWeightRatio,\\n            uint256 _votePowerBlock\\n        );\\n\\n    function wNat() external view returns (IIVPToken);\\n}\\n\",\"keccak256\":\"0x11e1ee671aa92ed02724713553b1bffe7aa1a992844f8b26da6de2b67bb347ae\",\"license\":\"MIT\"},\"@flarenetwork/flare-periphery-contracts/coston2/genesis/interface/IFtsoGenesis.sol\":{\"content\":\"\\n// SPDX-License-Identifier: MIT\\npragma solidity >=0.7.6 <0.9;\\n\\n\\ninterface IFtsoGenesis {\\n\\n    /**\\n     * @notice Reveals submitted price during epoch reveal period - only price submitter\\n     * @param _voter                Voter address\\n     * @param _epochId              Id of the epoch in which the price hash was submitted\\n     * @param _price                Submitted price in USD\\n     * @notice The hash of _price and _random must be equal to the submitted hash\\n     * @notice Emits PriceRevealed event\\n     */\\n    function revealPriceSubmitter(\\n        address _voter,\\n        uint256 _epochId,\\n        uint256 _price,\\n        uint256 _wNatVP\\n    ) external;\\n\\n    /**\\n     * @notice Get (and cache) wNat vote power for specified voter and given epoch id\\n     * @param _voter                Voter address\\n     * @param _epochId              Id of the epoch in which the price hash was submitted\\n     * @return wNat vote power\\n     */\\n    function wNatVotePowerCached(address _voter, uint256 _epochId) external returns (uint256);\\n}\\n\",\"keccak256\":\"0xd015bc43b8a22afaba50c42a56409df0d81172845dabc124a3d37b3b0bbd4df5\",\"license\":\"MIT\"},\"@flarenetwork/flare-periphery-contracts/coston2/genesis/interface/IFtsoRegistryGenesis.sol\":{\"content\":\"\\n// SPDX-License-Identifier: MIT\\npragma solidity >=0.7.6 <0.9;\\n\\nimport \\\"./IFtsoGenesis.sol\\\";\\n\\n\\ninterface IFtsoRegistryGenesis {\\n\\n    function getFtsos(uint256[] memory _indices) external view returns(IFtsoGenesis[] memory _ftsos);\\n}\\n\",\"keccak256\":\"0x4765fdcb22dcc64c015d02c019f0ddce8d8b36111160fd4160a3d94ea4f370a3\",\"license\":\"MIT\"},\"@flarenetwork/flare-periphery-contracts/coston2/token/interface/IICleanable.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity >=0.7.6 <0.9;\\n\\ninterface IICleanable {\\n    /**\\n     * Set the contract that is allowed to call history cleaning methods.\\n     */\\n    function setCleanerContract(address _cleanerContract) external;\\n    \\n    /**\\n     * Set the cleanup block number.\\n     * Historic data for the blocks before `cleanupBlockNumber` can be erased,\\n     * history before that block should never be used since it can be inconsistent.\\n     * In particular, cleanup block number must be before current vote power block.\\n     * @param _blockNumber The new cleanup block number.\\n     */\\n    function setCleanupBlockNumber(uint256 _blockNumber) external;\\n    \\n    /**\\n     * Get the current cleanup block number.\\n     */\\n    function cleanupBlockNumber() external view returns (uint256);\\n}\\n\",\"keccak256\":\"0x3ccc1532d642c3feff5b282a7c8901e2582844c1559acd1bd671afcb3aabaaef\",\"license\":\"MIT\"},\"@flarenetwork/flare-periphery-contracts/coston2/token/interface/IIGovernanceVotePower.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity >=0.7.6 <0.9;\\n\\nimport \\\"../../IVPToken.sol\\\";\\nimport \\\"../../IPChainStakeMirror.sol\\\";\\nimport \\\"../../IGovernanceVotePower.sol\\\";\\n\\n/**\\n * Internal interface for contracts delegating their governance vote power.\\n */\\ninterface IIGovernanceVotePower is IGovernanceVotePower {\\n    /**\\n     * Emitted when a delegate's vote power changes, as a result of a new delegation\\n     * or a token transfer, for example.\\n     *\\n     * The event is always emitted from a `GovernanceVotePower` contract.\\n     * @param delegate The account receiving the changing delegated vote power.\\n     * @param previousBalance Delegated vote power before the change.\\n     * @param newBalance Delegated vote power after the change.\\n     */\\n    event DelegateVotesChanged(\\n        address indexed delegate,\\n        uint256 previousBalance,\\n        uint256 newBalance\\n    );\\n\\n    /**\\n     * Emitted when an account starts delegating vote power or switches its delegation\\n     * to another address.\\n     *\\n     * The event is always emitted from a `GovernanceVotePower` contract.\\n     * @param delegator Account delegating its vote power.\\n     * @param fromDelegate Account receiving the delegation before the change.\\n     * Can be address(0) if there was no previous delegation.\\n     * @param toDelegate Account receiving the delegation after the change.\\n     * Can be address(0) if `delegator` just undelegated all its vote power.\\n     */\\n    event DelegateChanged(\\n        address indexed delegator,\\n        address indexed fromDelegate,\\n        address indexed toDelegate\\n    );\\n\\n    /**\\n     * Update governance vote power of all involved delegates after tokens are transferred.\\n     *\\n     * This function **MUST** be called after each governance token transfer for the\\n     * delegates to reflect the correct balance.\\n     * @param _from Source address of the transfer.\\n     * @param _to Destination address of the transfer.\\n     * @param _fromBalance _Ignored._\\n     * @param _toBalance _Ignored._\\n     * @param _amount Amount being transferred.\\n     */\\n    function updateAtTokenTransfer(\\n        address _from,\\n        address _to,\\n        uint256 _fromBalance,\\n        uint256 _toBalance,\\n        uint256 _amount\\n    ) external;\\n\\n    /**\\n     * Set the cleanup block number.\\n     * Historic data for the blocks before `cleanupBlockNumber` can be erased.\\n     * History before that block should never be used since it can be inconsistent.\\n     * In particular, cleanup block number must be lower than the current vote power block.\\n     * @param _blockNumber The new cleanup block number.\\n     */\\n    function setCleanupBlockNumber(uint256 _blockNumber) external;\\n\\n    /**\\n     * Set the contract that is allowed to call history cleaning methods.\\n     * @param _cleanerContract Address of the cleanup contract.\\n     * Usually this will be an instance of `CleanupBlockNumberManager`.\\n     */\\n    function setCleanerContract(address _cleanerContract) external;\\n\\n    /**\\n     * Get the token that this governance vote power contract belongs to.\\n     * @return The IVPToken interface owning this contract.\\n     */\\n    function ownerToken() external view returns (IVPToken);\\n\\n    /**\\n     * Get the stake mirror contract that this governance vote power contract belongs to.\\n     * @return The IPChainStakeMirror interface owning this contract.\\n     */\\n    function pChainStakeMirror() external view returns (IPChainStakeMirror);\\n\\n    /**\\n     * Get the current cleanup block number set with `setCleanupBlockNumber()`.\\n     * @return The currently set cleanup block number.\\n     */\\n    function getCleanupBlockNumber() external view returns(uint256);\\n}\\n\",\"keccak256\":\"0x3b175c30e7c500b9d8af13de07e631ab86b0ffce10917b0285cd06137f15be1a\",\"license\":\"MIT\"},\"@flarenetwork/flare-periphery-contracts/coston2/token/interface/IIVPContract.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity >=0.7.6 <0.9;\\n\\nimport \\\"../../IVPToken.sol\\\";\\nimport \\\"../../IVPContractEvents.sol\\\";\\nimport \\\"./IICleanable.sol\\\";\\n\\ninterface IIVPContract is IICleanable, IVPContractEvents {\\n    /**\\n     * Update vote powers when tokens are transfered.\\n     * Also update delegated vote powers for percentage delegation\\n     * and check for enough funds for explicit delegations.\\n     **/\\n    function updateAtTokenTransfer(\\n        address _from, \\n        address _to, \\n        uint256 _fromBalance,\\n        uint256 _toBalance,\\n        uint256 _amount\\n    ) external;\\n\\n    /**\\n     * @notice Delegate `_bips` percentage of voting power to `_to` from `_from`\\n     * @param _from The address of the delegator\\n     * @param _to The address of the recipient\\n     * @param _balance The delegator's current balance\\n     * @param _bips The percentage of voting power to be delegated expressed in basis points (1/100 of one percent).\\n     *   Not cumulative - every call resets the delegation value (and value of 0 revokes delegation).\\n     **/\\n    function delegate(\\n        address _from, \\n        address _to, \\n        uint256 _balance, \\n        uint256 _bips\\n    ) external;\\n    \\n    /**\\n     * @notice Explicitly delegate `_amount` of voting power to `_to` from `msg.sender`.\\n     * @param _from The address of the delegator\\n     * @param _to The address of the recipient\\n     * @param _balance The delegator's current balance\\n     * @param _amount An explicit vote power amount to be delegated.\\n     *   Not cumulative - every call resets the delegation value (and value of 0 undelegates `to`).\\n     **/    \\n    function delegateExplicit(\\n        address _from, \\n        address _to, \\n        uint256 _balance, \\n        uint _amount\\n    ) external;    \\n\\n    /**\\n     * @notice Revoke all delegation from sender to `_who` at given block. \\n     *    Only affects the reads via `votePowerOfAtCached()` in the block `_blockNumber`.\\n     *    Block `_blockNumber` must be in the past. \\n     *    This method should be used only to prevent rogue delegate voting in the current voting block.\\n     *    To stop delegating use delegate/delegateExplicit with value of 0 or undelegateAll/undelegateAllExplicit.\\n     * @param _from The address of the delegator\\n     * @param _who Address of the delegatee\\n     * @param _balance The delegator's current balance\\n     * @param _blockNumber The block number at which to revoke delegation.\\n     **/\\n    function revokeDelegationAt(\\n        address _from, \\n        address _who, \\n        uint256 _balance,\\n        uint _blockNumber\\n    ) external;\\n    \\n        /**\\n     * @notice Undelegate all voting power for delegates of `msg.sender`\\n     *    Can only be used with percentage delegation.\\n     *    Does not reset delegation mode back to NOTSET.\\n     * @param _from The address of the delegator\\n     **/\\n    function undelegateAll(\\n        address _from,\\n        uint256 _balance\\n    ) external;\\n    \\n    /**\\n     * @notice Undelegate all explicit vote power by amount delegates for `msg.sender`.\\n     *    Can only be used with explicit delegation.\\n     *    Does not reset delegation mode back to NOTSET.\\n     * @param _from The address of the delegator\\n     * @param _delegateAddresses Explicit delegation does not store delegatees' addresses, \\n     *   so the caller must supply them.\\n     * @return The amount still delegated (in case the list of delegates was incomplete).\\n     */\\n    function undelegateAllExplicit(\\n        address _from, \\n        address[] memory _delegateAddresses\\n    ) external returns (uint256);\\n    \\n    /**\\n    * @notice Get the vote power of `_who` at block `_blockNumber`\\n    *   Reads/updates cache and upholds revocations.\\n    * @param _who The address to get voting power.\\n    * @param _blockNumber The block number at which to fetch.\\n    * @return Vote power of `_who` at `_blockNumber`.\\n    */\\n    function votePowerOfAtCached(address _who, uint256 _blockNumber) external returns(uint256);\\n    \\n    /**\\n     * @notice Get the current vote power of `_who`.\\n     * @param _who The address to get voting power.\\n     * @return Current vote power of `_who`.\\n     */\\n    function votePowerOf(address _who) external view returns(uint256);\\n    \\n    /**\\n    * @notice Get the vote power of `_who` at block `_blockNumber`\\n    * @param _who The address to get voting power.\\n    * @param _blockNumber The block number at which to fetch.\\n    * @return Vote power of `_who` at `_blockNumber`.\\n    */\\n    function votePowerOfAt(address _who, uint256 _blockNumber) external view returns(uint256);\\n\\n    /**\\n    * @notice Get the vote power of `_who` at block `_blockNumber`, ignoring revocation information (and cache).\\n    * @param _who The address to get voting power.\\n    * @param _blockNumber The block number at which to fetch.\\n    * @return Vote power of `_who` at `_blockNumber`. Result doesn't change if vote power is revoked.\\n    */\\n    function votePowerOfAtIgnoringRevocation(address _who, uint256 _blockNumber) external view returns(uint256);\\n\\n    /**\\n     * Return vote powers for several addresses in a batch.\\n     * @param _owners The list of addresses to fetch vote power of.\\n     * @param _blockNumber The block number at which to fetch.\\n     * @return A list of vote powers.\\n     */    \\n    function batchVotePowerOfAt(\\n        address[] memory _owners, \\n        uint256 _blockNumber\\n    )\\n        external view returns(uint256[] memory);\\n\\n    /**\\n    * @notice Get current delegated vote power `_from` delegator delegated `_to` delegatee.\\n    * @param _from Address of delegator\\n    * @param _to Address of delegatee\\n    * @param _balance The delegator's current balance\\n    * @return The delegated vote power.\\n    */\\n    function votePowerFromTo(\\n        address _from, \\n        address _to, \\n        uint256 _balance\\n    ) external view returns(uint256);\\n    \\n    /**\\n    * @notice Get delegated the vote power `_from` delegator delegated `_to` delegatee at `_blockNumber`.\\n    * @param _from Address of delegator\\n    * @param _to Address of delegatee\\n    * @param _balance The delegator's current balance\\n    * @param _blockNumber The block number at which to fetch.\\n    * @return The delegated vote power.\\n    */\\n    function votePowerFromToAt(\\n        address _from, \\n        address _to, \\n        uint256 _balance,\\n        uint _blockNumber\\n    ) external view returns(uint256);\\n\\n    /**\\n     * @notice Compute the current undelegated vote power of `_owner`\\n     * @param _owner The address to get undelegated voting power.\\n     * @param _balance Owner's current balance\\n     * @return The unallocated vote power of `_owner`\\n     */\\n    function undelegatedVotePowerOf(\\n        address _owner,\\n        uint256 _balance\\n    ) external view returns(uint256);\\n\\n    /**\\n     * @notice Get the undelegated vote power of `_owner` at given block.\\n     * @param _owner The address to get undelegated voting power.\\n     * @param _blockNumber The block number at which to fetch.\\n     * @return The undelegated vote power of `_owner` (= owner's own balance minus all delegations from owner)\\n     */\\n    function undelegatedVotePowerOfAt(\\n        address _owner, \\n        uint256 _balance,\\n        uint256 _blockNumber\\n    ) external view returns(uint256);\\n\\n    /**\\n     * @notice Get the delegation mode for '_who'. This mode determines whether vote power is\\n     *  allocated by percentage or by explicit value.\\n     * @param _who The address to get delegation mode.\\n     * @return Delegation mode (NOTSET=0, PERCENTAGE=1, AMOUNT=2))\\n     */\\n    function delegationModeOf(address _who) external view returns (uint256);\\n    \\n    /**\\n    * @notice Get the vote power delegation `_delegateAddresses` \\n    *  and `pcts` of an `_owner`. Returned in two separate positional arrays.\\n    * @param _owner The address to get delegations.\\n    * @return _delegateAddresses Positional array of delegation addresses.\\n    * @return _bips Positional array of delegation percents specified in basis points (1/100 or 1 percent)\\n    * @return _count The number of delegates.\\n    * @return _delegationMode The mode of the delegation (NOTSET=0, PERCENTAGE=1, AMOUNT=2).\\n    */\\n    function delegatesOf(\\n        address _owner\\n    )\\n        external view \\n        returns (\\n            address[] memory _delegateAddresses, \\n            uint256[] memory _bips,\\n            uint256 _count,\\n            uint256 _delegationMode\\n        );\\n\\n    /**\\n    * @notice Get the vote power delegation `delegationAddresses` \\n    *  and `pcts` of an `_owner`. Returned in two separate positional arrays.\\n    * @param _owner The address to get delegations.\\n    * @param _blockNumber The block for which we want to know the delegations.\\n    * @return _delegateAddresses Positional array of delegation addresses.\\n    * @return _bips Positional array of delegation percents specified in basis points (1/100 or 1 percent)\\n    * @return _count The number of delegates.\\n    * @return _delegationMode The mode of the delegation (NOTSET=0, PERCENTAGE=1, AMOUNT=2).\\n    */\\n    function delegatesOfAt(\\n        address _owner,\\n        uint256 _blockNumber\\n    )\\n        external view \\n        returns (\\n            address[] memory _delegateAddresses, \\n            uint256[] memory _bips,\\n            uint256 _count,\\n            uint256 _delegationMode\\n        );\\n\\n    /**\\n     * The VPToken (or some other contract) that owns this VPContract.\\n     * All state changing methods may be called only from this address.\\n     * This is because original msg.sender is sent in `_from` parameter\\n     * and we must be sure that it cannot be faked by directly calling VPContract.\\n     * Owner token is also used in case of replacement to recover vote powers from balances.\\n     */\\n    function ownerToken() external view returns (IVPToken);\\n    \\n    /**\\n     * Return true if this IIVPContract is configured to be used as a replacement for other contract.\\n     * It means that vote powers are not necessarily correct at the initialization, therefore\\n     * every method that reads vote power must check whether it is initialized for that address and block.\\n     */\\n    function isReplacement() external view returns (bool);\\n}\\n\",\"keccak256\":\"0xfe46d34aedaf90b8835574b9cdcec39bb51e0bd00d79bb0e2c4ad51aaed417ba\",\"license\":\"MIT\"},\"@flarenetwork/flare-periphery-contracts/coston2/token/interface/IIVPToken.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity >=0.7.6 <0.9;\\n\\nimport \\\"../../IVPToken.sol\\\";\\nimport \\\"../../IGovernanceVotePower.sol\\\";\\nimport \\\"./IIVPContract.sol\\\";\\nimport \\\"./IIGovernanceVotePower.sol\\\";\\nimport \\\"./IICleanable.sol\\\";\\n\\ninterface IIVPToken is IVPToken, IICleanable {\\n    /**\\n     * Set the contract that is allowed to set cleanupBlockNumber.\\n     * Usually this will be an instance of CleanupBlockNumberManager.\\n     */\\n    function setCleanupBlockNumberManager(address _cleanupBlockNumberManager) external;\\n    \\n    /**\\n     * Sets new governance vote power contract that allows token owners to participate in governance voting\\n     * and delegate governance vote power. \\n     */\\n    function setGovernanceVotePower(IIGovernanceVotePower _governanceVotePower) external;\\n    \\n    /**\\n    * @notice Get the total vote power at block `_blockNumber` using cache.\\n    *   It tries to read the cached value and if not found, reads the actual value and stores it in cache.\\n    *   Can only be used if `_blockNumber` is in the past, otherwise reverts.    \\n    * @param _blockNumber The block number at which to fetch.\\n    * @return The total vote power at the block (sum of all accounts' vote powers).\\n    */\\n    function totalVotePowerAtCached(uint256 _blockNumber) external returns(uint256);\\n    \\n    /**\\n    * @notice Get the vote power of `_owner` at block `_blockNumber` using cache.\\n    *   It tries to read the cached value and if not found, reads the actual value and stores it in cache.\\n    *   Can only be used if _blockNumber is in the past, otherwise reverts.    \\n    * @param _owner The address to get voting power.\\n    * @param _blockNumber The block number at which to fetch.\\n    * @return Vote power of `_owner` at `_blockNumber`.\\n    */\\n    function votePowerOfAtCached(address _owner, uint256 _blockNumber) external returns(uint256);\\n\\n    /**\\n     * Return vote powers for several addresses in a batch.\\n     * @param _owners The list of addresses to fetch vote power of.\\n     * @param _blockNumber The block number at which to fetch.\\n     * @return A list of vote powers.\\n     */    \\n    function batchVotePowerOfAt(\\n        address[] memory _owners, \\n        uint256 _blockNumber\\n    ) external view returns(uint256[] memory);\\n}\\n\",\"keccak256\":\"0x66a179df6d76a8270dd0f2532a3c565eed4a6fd53b6fca1f657cf22be12acac0\",\"license\":\"MIT\"},\"@openzeppelin/contracts/token/ERC20/IERC20.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts (last updated v5.0.0) (token/ERC20/IERC20.sol)\\n\\npragma solidity ^0.8.20;\\n\\n/**\\n * @dev Interface of the ERC20 standard as defined in the EIP.\\n */\\ninterface IERC20 {\\n    /**\\n     * @dev Emitted when `value` tokens are moved from one account (`from`) to\\n     * another (`to`).\\n     *\\n     * Note that `value` may be zero.\\n     */\\n    event Transfer(address indexed from, address indexed to, uint256 value);\\n\\n    /**\\n     * @dev Emitted when the allowance of a `spender` for an `owner` is set by\\n     * a call to {approve}. `value` is the new allowance.\\n     */\\n    event Approval(address indexed owner, address indexed spender, uint256 value);\\n\\n    /**\\n     * @dev Returns the value of tokens in existence.\\n     */\\n    function totalSupply() external view returns (uint256);\\n\\n    /**\\n     * @dev Returns the value of tokens owned by `account`.\\n     */\\n    function balanceOf(address account) external view returns (uint256);\\n\\n    /**\\n     * @dev Moves a `value` amount of tokens from the caller's account to `to`.\\n     *\\n     * Returns a boolean value indicating whether the operation succeeded.\\n     *\\n     * Emits a {Transfer} event.\\n     */\\n    function transfer(address to, uint256 value) external returns (bool);\\n\\n    /**\\n     * @dev Returns the remaining number of tokens that `spender` will be\\n     * allowed to spend on behalf of `owner` through {transferFrom}. This is\\n     * zero by default.\\n     *\\n     * This value changes when {approve} or {transferFrom} are called.\\n     */\\n    function allowance(address owner, address spender) external view returns (uint256);\\n\\n    /**\\n     * @dev Sets a `value` amount of tokens as the allowance of `spender` over the\\n     * caller's tokens.\\n     *\\n     * Returns a boolean value indicating whether the operation succeeded.\\n     *\\n     * IMPORTANT: Beware that changing an allowance with this method brings the risk\\n     * that someone may use both the old and the new allowance by unfortunate\\n     * transaction ordering. One possible solution to mitigate this race\\n     * condition is to first reduce the spender's allowance to 0 and set the\\n     * desired value afterwards:\\n     * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729\\n     *\\n     * Emits an {Approval} event.\\n     */\\n    function approve(address spender, uint256 value) external returns (bool);\\n\\n    /**\\n     * @dev Moves a `value` amount of tokens from `from` to `to` using the\\n     * allowance mechanism. `value` is then deducted from the caller's\\n     * allowance.\\n     *\\n     * Returns a boolean value indicating whether the operation succeeded.\\n     *\\n     * Emits a {Transfer} event.\\n     */\\n    function transferFrom(address from, address to, uint256 value) external returns (bool);\\n}\\n\",\"keccak256\":\"0xc6a8ff0ea489379b61faa647490411b80102578440ab9d84e9a957cc12164e70\",\"license\":\"MIT\"},\"contracts/VolatilityLottery.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity ^0.8.19;\\n\\nimport \\\"@flarenetwork/flare-periphery-contracts/coston2/IFtsoRegistry.sol\\\";\\nimport \\\"@flarenetwork/flare-periphery-contracts/coston2/IRandomProvider.sol\\\";\\nimport \\\"@flarenetwork/flare-periphery-contracts/coston2/IFdcHub.sol\\\";\\n\\n/**\\n * @title VolatilityLottery\\n * @dev A decentralized game where users bet on cryptocurrency price volatility\\n * Uses Flare's FTSO for price feeds, FDC for finalization, and RNG for winner selection\\n */\\ncontract VolatilityLottery {\\n    // Flare Network Interfaces\\n    IFtsoRegistry public ftsoRegistry;\\n    IRandomProvider public randomProvider;\\n    IFdcHub public fdcHub;\\n    \\n    // Game Variables\\n    uint256 public roundId;\\n    uint256 public entryFee;\\n    uint256 public volatilityThreshold; // in basis points (e.g., 100 = 1%)\\n    uint256 public roundDuration; // in seconds\\n    string public pricePairSymbol; // e.g. \\\"BTC/USD\\\"\\n\\n    // Lottery Round Structure\\n    struct Round {\\n        uint256 startTime;\\n        uint256 endTime;\\n        uint256 startPrice;\\n        uint256 endPrice;\\n        uint256 actualVolatility; // in basis points\\n        bool isHighVolatility;\\n        bool isFinalized;\\n        uint256 totalPot;\\n        uint256 highVolatilityPot;\\n        uint256 lowVolatilityPot;\\n        address jackpotWinner;\\n    }\\n\\n    // Player Prediction Structure\\n    struct Prediction {\\n        bool isHighVolatility;\\n        uint256 amount;\\n        bool hasClaimed;\\n    }\\n\\n    // Storage\\n    mapping(uint256 => Round) public rounds;\\n    mapping(uint256 => mapping(address => Prediction)) public predictions;\\n    mapping(uint256 => address[]) public highVolatilityPlayers;\\n    mapping(uint256 => address[]) public lowVolatilityPlayers;\\n    \\n    // Events\\n    event RoundStarted(uint256 indexed roundId, uint256 startTime, uint256 startPrice);\\n    event PredictionMade(uint256 indexed roundId, address indexed player, bool isHighVolatility, uint256 amount);\\n    event RoundFinalized(uint256 indexed roundId, uint256 endPrice, uint256 volatility, bool isHighVolatility);\\n    event JackpotWinnerSelected(uint256 indexed roundId, address winner, uint256 amount);\\n    event RewardClaimed(uint256 indexed roundId, address indexed player, uint256 amount);\\n\\n    /**\\n     * @dev Constructor to initialize the contract\\n     * @param _ftsoRegistry Address of the FTSO Registry contract\\n     * @param _randomProvider Address of the Random Provider contract\\n     * @param _fdcHub Address of the FDC Hub contract\\n     * @param _entryFee Minimum amount of FLR to enter the lottery\\n     * @param _volatilityThreshold Threshold to determine high/low volatility in basis points\\n     * @param _roundDuration Duration of each round in seconds\\n     * @param _pricePairSymbol Price pair to track (e.g., \\\"BTC/USD\\\")\\n     */\\n    constructor(\\n        address _ftsoRegistry,\\n        address _randomProvider,\\n        address _fdcHub,\\n        uint256 _entryFee, \\n        uint256 _volatilityThreshold,\\n        uint256 _roundDuration,\\n        string memory _pricePairSymbol\\n    ) {\\n        ftsoRegistry = IFtsoRegistry(_ftsoRegistry);\\n        randomProvider = IRandomProvider(_randomProvider);\\n        fdcHub = IFdcHub(_fdcHub);\\n        entryFee = _entryFee;\\n        volatilityThreshold = _volatilityThreshold;\\n        roundDuration = _roundDuration;\\n        pricePairSymbol = _pricePairSymbol;\\n        \\n        // Start with round 1\\n        roundId = 1;\\n    }\\n\\n    /**\\n     * @dev Start a new lottery round\\n     */\\n    function startRound() external {\\n        require(roundId == 1 || rounds[roundId - 1].isFinalized, \\\"Previous round not finalized\\\");\\n        \\n        // Get current FTSO price\\n        (uint256 price, , ) = ftsoRegistry.getCurrentPriceWithDecimals(pricePairSymbol);\\n        \\n        // Create a new round\\n        rounds[roundId] = Round({\\n            startTime: block.timestamp,\\n            endTime: block.timestamp + roundDuration,\\n            startPrice: price,\\n            endPrice: 0,\\n            actualVolatility: 0,\\n            isHighVolatility: false,\\n            isFinalized: false,\\n            totalPot: 0,\\n            highVolatilityPot: 0,\\n            lowVolatilityPot: 0,\\n            jackpotWinner: address(0)\\n        });\\n        \\n        emit RoundStarted(roundId, block.timestamp, price);\\n    }\\n    \\n    /**\\n     * @dev Make a prediction for the current round\\n     * @param _isHighVolatility True if predicting high volatility, false otherwise\\n     */\\n    function makePrediction(bool _isHighVolatility) external payable {\\n        require(block.timestamp < rounds[roundId].endTime, \\\"Round has ended\\\");\\n        require(msg.value >= entryFee, \\\"Insufficient entry fee\\\");\\n        require(predictions[roundId][msg.sender].amount == 0, \\\"Already made a prediction\\\");\\n        \\n        // Record prediction\\n        predictions[roundId][msg.sender] = Prediction({\\n            isHighVolatility: _isHighVolatility,\\n            amount: msg.value,\\n            hasClaimed: false\\n        });\\n        \\n        // Add player to the appropriate list\\n        if (_isHighVolatility) {\\n            highVolatilityPlayers[roundId].push(msg.sender);\\n            rounds[roundId].highVolatilityPot += msg.value;\\n        } else {\\n            lowVolatilityPlayers[roundId].push(msg.sender);\\n            rounds[roundId].lowVolatilityPot += msg.value;\\n        }\\n        \\n        // Update total pot\\n        rounds[roundId].totalPot += msg.value;\\n        \\n        emit PredictionMade(roundId, msg.sender, _isHighVolatility, msg.value);\\n    }\\n    \\n    /**\\n     * @dev Finalize the current round\\n     * Uses FDC Hub for finalized data and gets a random number for jackpot selection\\n     */\\n    function finalizeRound() external {\\n        uint256 currentRoundId = roundId;\\n        require(block.timestamp >= rounds[currentRoundId].endTime, \\\"Round not ended yet\\\");\\n        require(!rounds[currentRoundId].isFinalized, \\\"Round already finalized\\\");\\n        \\n        // Get current price from FTSO (with finalized data)\\n        (uint256 endPrice, , ) = ftsoRegistry.getCurrentPriceWithDecimals(pricePairSymbol);\\n        \\n        // Calculate volatility (absolute percentage change)\\n        uint256 startPrice = rounds[currentRoundId].startPrice;\\n        uint256 volatility;\\n        \\n        if (endPrice > startPrice) {\\n            volatility = ((endPrice - startPrice) * 10000) / startPrice; // in basis points\\n        } else {\\n            volatility = ((startPrice - endPrice) * 10000) / startPrice; // in basis points\\n        }\\n        \\n        // Determine if volatility is high or low\\n        bool isHighVolatility = volatility >= volatilityThreshold;\\n        \\n        // Update round data\\n        rounds[currentRoundId].endPrice = endPrice;\\n        rounds[currentRoundId].actualVolatility = volatility;\\n        rounds[currentRoundId].isHighVolatility = isHighVolatility;\\n        \\n        // If there are winners, select jackpot winner\\n        address[] memory winners = isHighVolatility ? \\n            highVolatilityPlayers[currentRoundId] : \\n            lowVolatilityPlayers[currentRoundId];\\n        \\n        if (winners.length > 0) {\\n            // Request random number to select jackpot winner\\n            uint256 randomNumber = randomProvider.getCurrentRandom();\\n            uint256 winnerIndex = randomNumber % winners.length;\\n            rounds[currentRoundId].jackpotWinner = winners[winnerIndex];\\n            \\n            emit JackpotWinnerSelected(currentRoundId, winners[winnerIndex], rounds[currentRoundId].totalPot / 10); // 10% bonus\\n        }\\n        \\n        // Mark round as finalized\\n        rounds[currentRoundId].isFinalized = true;\\n        \\n        // Start next round\\n        roundId++;\\n        \\n        emit RoundFinalized(currentRoundId, endPrice, volatility, isHighVolatility);\\n    }\\n    \\n    /**\\n     * @dev Claim rewards for a specific round\\n     * @param _roundId The round to claim rewards for\\n     */\\n    function claimRewards(uint256 _roundId) external {\\n        require(rounds[_roundId].isFinalized, \\\"Round not finalized\\\");\\n        require(!predictions[_roundId][msg.sender].hasClaimed, \\\"Already claimed\\\");\\n        \\n        Prediction memory userPrediction = predictions[_roundId][msg.sender];\\n        require(userPrediction.amount > 0, \\\"No prediction made\\\");\\n        \\n        // Check if user won\\n        bool userWon = userPrediction.isHighVolatility == rounds[_roundId].isHighVolatility;\\n        require(userWon, \\\"You didn't win this round\\\");\\n        \\n        // Calculate reward\\n        uint256 reward;\\n        if (userWon) {\\n            uint256 winningPot = userPrediction.isHighVolatility ? \\n                rounds[_roundId].highVolatilityPot : \\n                rounds[_roundId].lowVolatilityPot;\\n            \\n            // Calculate proportional reward\\n            reward = (userPrediction.amount * rounds[_roundId].totalPot) / winningPot;\\n            \\n            // Add jackpot bonus if applicable\\n            if (msg.sender == rounds[_roundId].jackpotWinner) {\\n                reward += rounds[_roundId].totalPot / 10; // 10% bonus\\n            }\\n        }\\n        \\n        // Mark as claimed and transfer rewards\\n        predictions[_roundId][msg.sender].hasClaimed = true;\\n        payable(msg.sender).transfer(reward);\\n        \\n        emit RewardClaimed(_roundId, msg.sender, reward);\\n    }\\n}\\n\",\"keccak256\":\"0x2c3c743d13264b144d30502975357a9f78b5dee64edc0b265be49d5f7246f105\",\"license\":\"MIT\"}},\"version\":1}",
+  "bytecode": "0x60806040523480156200001157600080fd5b506040516200176c3803806200176c8339810160408190526200003491620000d5565b600080546001600160a01b03808a166001600160a01b03199283161790925560018054898416908316179055600280549288169290911691909117905560048490556005839055600682905560076200008e82826200028f565b50506001600355506200035b945050505050565b80516001600160a01b0381168114620000ba57600080fd5b919050565b634e487b7160e01b600052604160045260246000fd5b600080600080600080600060e0888a031215620000f157600080fd5b620000fc88620000a2565b965060206200010d818a01620000a2565b96506200011d60408a01620000a2565b60608a015160808b015160a08c015160c08d0151939950919750955093506001600160401b03808211156200015157600080fd5b818b0191508b601f8301126200016657600080fd5b8151818111156200017b576200017b620000bf565b604051601f8201601f19908116603f01168101908382118183101715620001a657620001a6620000bf565b816040528281528e86848701011115620001bf57600080fd5b600093505b82841015620001e35784840186015181850187015292850192620001c4565b600086848301015280965050505050505092959891949750929550565b600181811c908216806200021557607f821691505b6020821081036200023657634e487b7160e01b600052602260045260246000fd5b50919050565b601f8211156200028a57600081815260208120601f850160051c81016020861015620002655750805b601f850160051c820191505b81811015620002865782815560010162000271565b5050505b505050565b81516001600160401b03811115620002ab57620002ab620000bf565b620002c381620002bc845462000200565b846200023c565b602080601f831160018114620002fb5760008415620002e25750858301515b600019600386901b1c1916600185901b17855562000286565b600085815260208120601f198616915b828110156200032c578886015182559484019460019091019084016200030b565b50858210156200034b5787850151600019600388901b60f8161c191681555b5050505050600190811b01905550565b611401806200036b6000396000f3fe6080604052600436106100f35760003560e01c80638cd221c91161008a578063b9e62a5711610059578063b9e62a571461037d578063d2f1f3cb14610390578063f029e67f146103b0578063f7cb789a146103d057600080fd5b80638cd221c9146102c65780638f46500e146102dc57806392b108d0146102fc5780639fe88c841461036757600080fd5b806355e3f086116100c657806355e3f0861461019057806365893e87146101a55780638010fcaf146101c75780638c65c81f146101e757600080fd5b8063072ea61c146100f85780630962ef79146101215780631e8203251461014357806338b5f86914610158575b600080fd5b34801561010457600080fd5b5061010e60045481565b6040519081526020015b60405180910390f35b34801561012d57600080fd5b5061014161013c3660046110ea565b6103e6565b005b34801561014f57600080fd5b506101416106eb565b34801561016457600080fd5b50600054610178906001600160a01b031681565b6040516001600160a01b039091168152602001610118565b34801561019c57600080fd5b50610141610b1f565b3480156101b157600080fd5b506101ba610d6f565b6040516101189190611103565b3480156101d357600080fd5b50600254610178906001600160a01b031681565b3480156101f357600080fd5b506102686102023660046110ea565b600860208190526000918252604090912080546001820154600283015460038401546004850154600586015460068701546007880154988801546009909801549698959794969395929460ff80841695610100909404169391926001600160a01b03168b565b604080519b8c5260208c019a909a52988a01979097526060890195909552608088019390935290151560a0870152151560c086015260e08501526101008401526101208301526001600160a01b031661014082015261016001610118565b3480156102d257600080fd5b5061010e60035481565b3480156102e857600080fd5b50600154610178906001600160a01b031681565b34801561030857600080fd5b50610348610317366004611151565b600960209081526000928352604080842090915290825290208054600182015460029092015460ff91821692911683565b6040805193151584526020840192909252151590820152606001610118565b34801561037357600080fd5b5061010e60055481565b61014161038b36600461118d565b610dfd565b34801561039c57600080fd5b506101786103ab3660046111b6565b611096565b3480156103bc57600080fd5b506101786103cb3660046111b6565b6110ce565b3480156103dc57600080fd5b5061010e60065481565b600081815260086020526040902060050154610100900460ff166104475760405162461bcd60e51b8152602060048201526013602482015272149bdd5b99081b9bdd08199a5b985b1a5e9959606a1b60448201526064015b60405180910390fd5b600081815260096020908152604080832033845290915290206002015460ff16156104a65760405162461bcd60e51b815260206004820152600f60248201526e105b1c9958591e4818db185a5b5959608a1b604482015260640161043e565b60008181526009602090815260408083203384528252918290208251606081018452815460ff9081161515825260018301549382018490526002909201549091161515928101929092526105315760405162461bcd60e51b81526020600482015260126024820152714e6f2070726564696374696f6e206d61646560701b604482015260640161043e565b6000828152600860205260409020600501548151151560ff9091161515148061059c5760405162461bcd60e51b815260206004820152601960248201527f596f75206469646e27742077696e207468697320726f756e6400000000000000604482015260640161043e565b6000811561065c5782516000906105c557600085815260086020819052604090912001546105d8565b6000858152600860205260409020600701545b9050806008600087815260200190815260200160002060060154856020015161060191906111ee565b61060b9190611221565b6000868152600860205260409020600901549092506001600160a01b0316330361065a5760008581526008602052604090206006015461064d90600a90611221565b6106579083611235565b91505b505b6000848152600960209081526040808320338085529252808320600201805460ff1916600117905551909183156108fc02918491818181858888f193505050501580156106ad573d6000803e3d6000fd5b50604051818152339085907f24b5efa61dd1cfc659205a97fb8ed868f3cb8c81922bab2b96423e5de1de2cb79060200160405180910390a350505050565b6003546000818152600860205260409020600101544210156107455760405162461bcd60e51b8152602060048201526013602482015272149bdd5b99081b9bdd08195b991959081e595d606a1b604482015260640161043e565b600081815260086020526040902060050154610100900460ff16156107ac5760405162461bcd60e51b815260206004820152601760248201527f526f756e6420616c72656164792066696e616c697a6564000000000000000000604482015260640161043e565b6000805460405163534d7ee360e11b81526001600160a01b039091169063a69afdc6906107de90600790600401611282565b606060405180830381865afa1580156107fb573d6000803e3d6000fd5b505050506040513d601f19601f8201168201806040525081019061081f919061132e565b5050600083815260086020526040812060020154919250818311156108665781610849818561135c565b610855906127106111ee565b61085f9190611221565b905061088a565b81610871848261135c565b61087d906127106111ee565b6108879190611221565b90505b6005805460008681526008602052604081206003810187905560048101859055909201805460ff191691841015918217905590816108d5576000868152600b602052604090206108e4565b6000868152600a602052604090205b80548060200260200160405190810160405280929190818152602001828054801561093857602002820191906000526020600020905b81546001600160a01b0316815260019091019060200180831161091a575b50505050509050600081511115610aa2576001546040805163d89601fd60e01b815290516000926001600160a01b03169163d89601fd9160048083019260209291908290030181865afa158015610993573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906109b7919061136f565b905060008251826109c89190611388565b90508281815181106109dc576109dc61139c565b6020026020010151600860008a815260200190815260200160002060090160006101000a8154816001600160a01b0302191690836001600160a01b03160217905550877ff6c4e96498b56f59e33c2a0fd2673bcf1c84f97daec9ed7d1fe57fa1174cfd09848381518110610a5257610a5261139c565b6020026020010151600a600860008d815260200190815260200160002060060154610a7d9190611221565b604080516001600160a01b03909316835260208301919091520160405180910390a250505b6000868152600860205260408120600501805461ff0019166101001790556003805491610ace836113b2565b9091555050604080518681526020810185905283151581830152905187917f8287198ee1278e57d6757ad00292b58fe127cc5f1799a3f3ea09e27f2cc681d6919081900360600190a2505050505050565b60035460011480610b5b5750600860006001600354610b3e919061135c565b8152602081019190915260400160002060050154610100900460ff165b610ba75760405162461bcd60e51b815260206004820152601c60248201527f50726576696f757320726f756e64206e6f742066696e616c697a656400000000604482015260640161043e565b6000805460405163534d7ee360e11b81526001600160a01b039091169063a69afdc690610bd990600790600401611282565b606060405180830381865afa158015610bf6573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190610c1a919061132e565b5050905060405180610160016040528042815260200160065442610c3e9190611235565b81526020808201849052600060408084018290526060808501839052608080860184905260a080870185905260c080880186905260e0808901879052610100808a01889052610120998a018890526003805489526008808b52988890208c5181558c8b015160018201558c8901516002820155968c015187820155948b01516004870155928a0151600586018054938c015161ffff1990941691151561ff0019169190911792151584029290921790915588015160068401558701516007830155948601519281019290925561014090940151600990910180546001600160a01b0319166001600160a01b0390921691909117905590548251428152918201849052917fa359b664a68acd8839e42112eb50eff3408165e15074fde89ddb58a0db2e691d910160405180910390a250565b60078054610d7c90611248565b80601f0160208091040260200160405190810160405280929190818152602001828054610da890611248565b8015610df55780601f10610dca57610100808354040283529160200191610df5565b820191906000526020600020905b815481529060010190602001808311610dd857829003601f168201915b505050505081565b6003546000908152600860205260409020600101544210610e525760405162461bcd60e51b815260206004820152600f60248201526e149bdd5b99081a185cc8195b991959608a1b604482015260640161043e565b600454341015610e9d5760405162461bcd60e51b8152602060048201526016602482015275496e73756666696369656e7420656e7472792066656560501b604482015260640161043e565b600354600090815260096020908152604080832033845290915290206001015415610f0a5760405162461bcd60e51b815260206004820152601960248201527f416c7265616479206d61646520612070726564696374696f6e00000000000000604482015260640161043e565b604080516060810182528215801582523460208084019182526000848601818152600354825260098352868220338352909252949094209251835490151560ff19918216178455905160018401559251600290920180549215159290931691909117909155610fd057600380546000908152600a6020908152604080832080546001810182559084528284200180546001600160a01b0319163317905592548252600890529081206007018054349290610fc5908490611235565b9091555061102a9050565b600380546000908152600b6020908152604080832080546001810182559084528284200180546001600160a01b03191633179055925482526008908190529181209091018054349290611024908490611235565b90915550505b6003546000908152600860205260408120600601805434929061104e908490611235565b90915550506003546040805183151581523460208201523392917fa9aed7f94b5a4f3dd5866f22ce8fc1e6b9d02da3ba20a212a4b5668dd29dc1d1910160405180910390a350565b600b60205281600052604060002081815481106110b257600080fd5b6000918252602090912001546001600160a01b03169150829050565b600a60205281600052604060002081815481106110b257600080fd5b6000602082840312156110fc57600080fd5b5035919050565b600060208083528351808285015260005b8181101561113057858101830151858201604001528201611114565b506000604082860101526040601f19601f8301168501019250505092915050565b6000806040838503121561116457600080fd5b8235915060208301356001600160a01b038116811461118257600080fd5b809150509250929050565b60006020828403121561119f57600080fd5b813580151581146111af57600080fd5b9392505050565b600080604083850312156111c957600080fd5b50508035926020909101359150565b634e487b7160e01b600052601160045260246000fd5b8082028115828204841417611205576112056111d8565b92915050565b634e487b7160e01b600052601260045260246000fd5b6000826112305761123061120b565b500490565b80820180821115611205576112056111d8565b600181811c9082168061125c57607f821691505b60208210810361127c57634e487b7160e01b600052602260045260246000fd5b50919050565b600060208083526000845481600182811c9150808316806112a457607f831692505b85831081036112c157634e487b7160e01b85526022600452602485fd5b8786018381526020018180156112de57600181146112f45761131f565b60ff198616825284151560051b8201965061131f565b60008b81526020902060005b8681101561131957815484820152908501908901611300565b83019750505b50949998505050505050505050565b60008060006060848603121561134357600080fd5b8351925060208401519150604084015190509250925092565b81810381811115611205576112056111d8565b60006020828403121561138157600080fd5b5051919050565b6000826113975761139761120b565b500690565b634e487b7160e01b600052603260045260246000fd5b6000600182016113c4576113c46111d8565b506001019056fea26469706673582212204634b2aa411445f014a3c0a99ddde3e11a5f67de948afb106e6f321a85c3703a64736f6c63430008140033",
+  "deployedBytecode": "0x6080604052600436106100f35760003560e01c80638cd221c91161008a578063b9e62a5711610059578063b9e62a571461037d578063d2f1f3cb14610390578063f029e67f146103b0578063f7cb789a146103d057600080fd5b80638cd221c9146102c65780638f46500e146102dc57806392b108d0146102fc5780639fe88c841461036757600080fd5b806355e3f086116100c657806355e3f0861461019057806365893e87146101a55780638010fcaf146101c75780638c65c81f146101e757600080fd5b8063072ea61c146100f85780630962ef79146101215780631e8203251461014357806338b5f86914610158575b600080fd5b34801561010457600080fd5b5061010e60045481565b6040519081526020015b60405180910390f35b34801561012d57600080fd5b5061014161013c3660046110ea565b6103e6565b005b34801561014f57600080fd5b506101416106eb565b34801561016457600080fd5b50600054610178906001600160a01b031681565b6040516001600160a01b039091168152602001610118565b34801561019c57600080fd5b50610141610b1f565b3480156101b157600080fd5b506101ba610d6f565b6040516101189190611103565b3480156101d357600080fd5b50600254610178906001600160a01b031681565b3480156101f357600080fd5b506102686102023660046110ea565b600860208190526000918252604090912080546001820154600283015460038401546004850154600586015460068701546007880154988801546009909801549698959794969395929460ff80841695610100909404169391926001600160a01b03168b565b604080519b8c5260208c019a909a52988a01979097526060890195909552608088019390935290151560a0870152151560c086015260e08501526101008401526101208301526001600160a01b031661014082015261016001610118565b3480156102d257600080fd5b5061010e60035481565b3480156102e857600080fd5b50600154610178906001600160a01b031681565b34801561030857600080fd5b50610348610317366004611151565b600960209081526000928352604080842090915290825290208054600182015460029092015460ff91821692911683565b6040805193151584526020840192909252151590820152606001610118565b34801561037357600080fd5b5061010e60055481565b61014161038b36600461118d565b610dfd565b34801561039c57600080fd5b506101786103ab3660046111b6565b611096565b3480156103bc57600080fd5b506101786103cb3660046111b6565b6110ce565b3480156103dc57600080fd5b5061010e60065481565b600081815260086020526040902060050154610100900460ff166104475760405162461bcd60e51b8152602060048201526013602482015272149bdd5b99081b9bdd08199a5b985b1a5e9959606a1b60448201526064015b60405180910390fd5b600081815260096020908152604080832033845290915290206002015460ff16156104a65760405162461bcd60e51b815260206004820152600f60248201526e105b1c9958591e4818db185a5b5959608a1b604482015260640161043e565b60008181526009602090815260408083203384528252918290208251606081018452815460ff9081161515825260018301549382018490526002909201549091161515928101929092526105315760405162461bcd60e51b81526020600482015260126024820152714e6f2070726564696374696f6e206d61646560701b604482015260640161043e565b6000828152600860205260409020600501548151151560ff9091161515148061059c5760405162461bcd60e51b815260206004820152601960248201527f596f75206469646e27742077696e207468697320726f756e6400000000000000604482015260640161043e565b6000811561065c5782516000906105c557600085815260086020819052604090912001546105d8565b6000858152600860205260409020600701545b9050806008600087815260200190815260200160002060060154856020015161060191906111ee565b61060b9190611221565b6000868152600860205260409020600901549092506001600160a01b0316330361065a5760008581526008602052604090206006015461064d90600a90611221565b6106579083611235565b91505b505b6000848152600960209081526040808320338085529252808320600201805460ff1916600117905551909183156108fc02918491818181858888f193505050501580156106ad573d6000803e3d6000fd5b50604051818152339085907f24b5efa61dd1cfc659205a97fb8ed868f3cb8c81922bab2b96423e5de1de2cb79060200160405180910390a350505050565b6003546000818152600860205260409020600101544210156107455760405162461bcd60e51b8152602060048201526013602482015272149bdd5b99081b9bdd08195b991959081e595d606a1b604482015260640161043e565b600081815260086020526040902060050154610100900460ff16156107ac5760405162461bcd60e51b815260206004820152601760248201527f526f756e6420616c72656164792066696e616c697a6564000000000000000000604482015260640161043e565b6000805460405163534d7ee360e11b81526001600160a01b039091169063a69afdc6906107de90600790600401611282565b606060405180830381865afa1580156107fb573d6000803e3d6000fd5b505050506040513d601f19601f8201168201806040525081019061081f919061132e565b5050600083815260086020526040812060020154919250818311156108665781610849818561135c565b610855906127106111ee565b61085f9190611221565b905061088a565b81610871848261135c565b61087d906127106111ee565b6108879190611221565b90505b6005805460008681526008602052604081206003810187905560048101859055909201805460ff191691841015918217905590816108d5576000868152600b602052604090206108e4565b6000868152600a602052604090205b80548060200260200160405190810160405280929190818152602001828054801561093857602002820191906000526020600020905b81546001600160a01b0316815260019091019060200180831161091a575b50505050509050600081511115610aa2576001546040805163d89601fd60e01b815290516000926001600160a01b03169163d89601fd9160048083019260209291908290030181865afa158015610993573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906109b7919061136f565b905060008251826109c89190611388565b90508281815181106109dc576109dc61139c565b6020026020010151600860008a815260200190815260200160002060090160006101000a8154816001600160a01b0302191690836001600160a01b03160217905550877ff6c4e96498b56f59e33c2a0fd2673bcf1c84f97daec9ed7d1fe57fa1174cfd09848381518110610a5257610a5261139c565b6020026020010151600a600860008d815260200190815260200160002060060154610a7d9190611221565b604080516001600160a01b03909316835260208301919091520160405180910390a250505b6000868152600860205260408120600501805461ff0019166101001790556003805491610ace836113b2565b9091555050604080518681526020810185905283151581830152905187917f8287198ee1278e57d6757ad00292b58fe127cc5f1799a3f3ea09e27f2cc681d6919081900360600190a2505050505050565b60035460011480610b5b5750600860006001600354610b3e919061135c565b8152602081019190915260400160002060050154610100900460ff165b610ba75760405162461bcd60e51b815260206004820152601c60248201527f50726576696f757320726f756e64206e6f742066696e616c697a656400000000604482015260640161043e565b6000805460405163534d7ee360e11b81526001600160a01b039091169063a69afdc690610bd990600790600401611282565b606060405180830381865afa158015610bf6573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190610c1a919061132e565b5050905060405180610160016040528042815260200160065442610c3e9190611235565b81526020808201849052600060408084018290526060808501839052608080860184905260a080870185905260c080880186905260e0808901879052610100808a01889052610120998a018890526003805489526008808b52988890208c5181558c8b015160018201558c8901516002820155968c015187820155948b01516004870155928a0151600586018054938c015161ffff1990941691151561ff0019169190911792151584029290921790915588015160068401558701516007830155948601519281019290925561014090940151600990910180546001600160a01b0319166001600160a01b0390921691909117905590548251428152918201849052917fa359b664a68acd8839e42112eb50eff3408165e15074fde89ddb58a0db2e691d910160405180910390a250565b60078054610d7c90611248565b80601f0160208091040260200160405190810160405280929190818152602001828054610da890611248565b8015610df55780601f10610dca57610100808354040283529160200191610df5565b820191906000526020600020905b815481529060010190602001808311610dd857829003601f168201915b505050505081565b6003546000908152600860205260409020600101544210610e525760405162461bcd60e51b815260206004820152600f60248201526e149bdd5b99081a185cc8195b991959608a1b604482015260640161043e565b600454341015610e9d5760405162461bcd60e51b8152602060048201526016602482015275496e73756666696369656e7420656e7472792066656560501b604482015260640161043e565b600354600090815260096020908152604080832033845290915290206001015415610f0a5760405162461bcd60e51b815260206004820152601960248201527f416c7265616479206d61646520612070726564696374696f6e00000000000000604482015260640161043e565b604080516060810182528215801582523460208084019182526000848601818152600354825260098352868220338352909252949094209251835490151560ff19918216178455905160018401559251600290920180549215159290931691909117909155610fd057600380546000908152600a6020908152604080832080546001810182559084528284200180546001600160a01b0319163317905592548252600890529081206007018054349290610fc5908490611235565b9091555061102a9050565b600380546000908152600b6020908152604080832080546001810182559084528284200180546001600160a01b03191633179055925482526008908190529181209091018054349290611024908490611235565b90915550505b6003546000908152600860205260408120600601805434929061104e908490611235565b90915550506003546040805183151581523460208201523392917fa9aed7f94b5a4f3dd5866f22ce8fc1e6b9d02da3ba20a212a4b5668dd29dc1d1910160405180910390a350565b600b60205281600052604060002081815481106110b257600080fd5b6000918252602090912001546001600160a01b03169150829050565b600a60205281600052604060002081815481106110b257600080fd5b6000602082840312156110fc57600080fd5b5035919050565b600060208083528351808285015260005b8181101561113057858101830151858201604001528201611114565b506000604082860101526040601f19601f8301168501019250505092915050565b6000806040838503121561116457600080fd5b8235915060208301356001600160a01b038116811461118257600080fd5b809150509250929050565b60006020828403121561119f57600080fd5b813580151581146111af57600080fd5b9392505050565b600080604083850312156111c957600080fd5b50508035926020909101359150565b634e487b7160e01b600052601160045260246000fd5b8082028115828204841417611205576112056111d8565b92915050565b634e487b7160e01b600052601260045260246000fd5b6000826112305761123061120b565b500490565b80820180821115611205576112056111d8565b600181811c9082168061125c57607f821691505b60208210810361127c57634e487b7160e01b600052602260045260246000fd5b50919050565b600060208083526000845481600182811c9150808316806112a457607f831692505b85831081036112c157634e487b7160e01b85526022600452602485fd5b8786018381526020018180156112de57600181146112f45761131f565b60ff198616825284151560051b8201965061131f565b60008b81526020902060005b8681101561131957815484820152908501908901611300565b83019750505b50949998505050505050505050565b60008060006060848603121561134357600080fd5b8351925060208401519150604084015190509250925092565b81810381811115611205576112056111d8565b60006020828403121561138157600080fd5b5051919050565b6000826113975761139761120b565b500690565b634e487b7160e01b600052603260045260246000fd5b6000600182016113c4576113c46111d8565b506001019056fea26469706673582212204634b2aa411445f014a3c0a99ddde3e11a5f67de948afb106e6f321a85c3703a64736f6c63430008140033",
+  "devdoc": {
+    "details": "A decentralized game where users bet on cryptocurrency price volatility Uses Flare's FTSO for price feeds, FDC for finalization, and RNG for winner selection",
+    "kind": "dev",
+    "methods": {
+      "claimRewards(uint256)": {
+        "details": "Claim rewards for a specific round",
+        "params": {
+          "_roundId": "The round to claim rewards for"
+        }
+      },
+      "constructor": {
+        "details": "Constructor to initialize the contract",
+        "params": {
+          "_entryFee": "Minimum amount of FLR to enter the lottery",
+          "_fdcHub": "Address of the FDC Hub contract",
+          "_ftsoRegistry": "Address of the FTSO Registry contract",
+          "_pricePairSymbol": "Price pair to track (e.g., \"BTC/USD\")",
+          "_randomProvider": "Address of the Random Provider contract",
+          "_roundDuration": "Duration of each round in seconds",
+          "_volatilityThreshold": "Threshold to determine high/low volatility in basis points"
+        }
+      },
+      "finalizeRound()": {
+        "details": "Finalize the current round Uses FDC Hub for finalized data and gets a random number for jackpot selection"
+      },
+      "makePrediction(bool)": {
+        "details": "Make a prediction for the current round",
+        "params": {
+          "_isHighVolatility": "True if predicting high volatility, false otherwise"
+        }
+      },
+      "startRound()": {
+        "details": "Start a new lottery round"
+      }
+    },
+    "title": "VolatilityLottery",
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {},
+    "version": 1
+  },
+  "storageLayout": {
+    "storage": [
+      {
+        "astId": 1757,
+        "contract": "contracts/VolatilityLottery.sol:VolatilityLottery",
+        "label": "ftsoRegistry",
+        "offset": 0,
+        "slot": "0",
+        "type": "t_contract(IFtsoRegistry)483"
+      },
+      {
+        "astId": 1760,
+        "contract": "contracts/VolatilityLottery.sol:VolatilityLottery",
+        "label": "randomProvider",
+        "offset": 0,
+        "slot": "1",
+        "type": "t_contract(IRandomProvider)815"
+      },
+      {
+        "astId": 1763,
+        "contract": "contracts/VolatilityLottery.sol:VolatilityLottery",
+        "label": "fdcHub",
+        "offset": 0,
+        "slot": "2",
+        "type": "t_contract(IFdcHub)52"
+      },
+      {
+        "astId": 1765,
+        "contract": "contracts/VolatilityLottery.sol:VolatilityLottery",
+        "label": "roundId",
+        "offset": 0,
+        "slot": "3",
+        "type": "t_uint256"
+      },
+      {
+        "astId": 1767,
+        "contract": "contracts/VolatilityLottery.sol:VolatilityLottery",
+        "label": "entryFee",
+        "offset": 0,
+        "slot": "4",
+        "type": "t_uint256"
+      },
+      {
+        "astId": 1769,
+        "contract": "contracts/VolatilityLottery.sol:VolatilityLottery",
+        "label": "volatilityThreshold",
+        "offset": 0,
+        "slot": "5",
+        "type": "t_uint256"
+      },
+      {
+        "astId": 1771,
+        "contract": "contracts/VolatilityLottery.sol:VolatilityLottery",
+        "label": "roundDuration",
+        "offset": 0,
+        "slot": "6",
+        "type": "t_uint256"
+      },
+      {
+        "astId": 1773,
+        "contract": "contracts/VolatilityLottery.sol:VolatilityLottery",
+        "label": "pricePairSymbol",
+        "offset": 0,
+        "slot": "7",
+        "type": "t_string_storage"
+      },
+      {
+        "astId": 1808,
+        "contract": "contracts/VolatilityLottery.sol:VolatilityLottery",
+        "label": "rounds",
+        "offset": 0,
+        "slot": "8",
+        "type": "t_mapping(t_uint256,t_struct(Round)1796_storage)"
+      },
+      {
+        "astId": 1815,
+        "contract": "contracts/VolatilityLottery.sol:VolatilityLottery",
+        "label": "predictions",
+        "offset": 0,
+        "slot": "9",
+        "type": "t_mapping(t_uint256,t_mapping(t_address,t_struct(Prediction)1803_storage))"
+      },
+      {
+        "astId": 1820,
+        "contract": "contracts/VolatilityLottery.sol:VolatilityLottery",
+        "label": "highVolatilityPlayers",
+        "offset": 0,
+        "slot": "10",
+        "type": "t_mapping(t_uint256,t_array(t_address)dyn_storage)"
+      },
+      {
+        "astId": 1825,
+        "contract": "contracts/VolatilityLottery.sol:VolatilityLottery",
+        "label": "lowVolatilityPlayers",
+        "offset": 0,
+        "slot": "11",
+        "type": "t_mapping(t_uint256,t_array(t_address)dyn_storage)"
+      }
+    ],
+    "types": {
+      "t_address": {
+        "encoding": "inplace",
+        "label": "address",
+        "numberOfBytes": "20"
+      },
+      "t_array(t_address)dyn_storage": {
+        "base": "t_address",
+        "encoding": "dynamic_array",
+        "label": "address[]",
+        "numberOfBytes": "32"
+      },
+      "t_bool": {
+        "encoding": "inplace",
+        "label": "bool",
+        "numberOfBytes": "1"
+      },
+      "t_contract(IFdcHub)52": {
+        "encoding": "inplace",
+        "label": "contract IFdcHub",
+        "numberOfBytes": "20"
+      },
+      "t_contract(IFtsoRegistry)483": {
+        "encoding": "inplace",
+        "label": "contract IFtsoRegistry",
+        "numberOfBytes": "20"
+      },
+      "t_contract(IRandomProvider)815": {
+        "encoding": "inplace",
+        "label": "contract IRandomProvider",
+        "numberOfBytes": "20"
+      },
+      "t_mapping(t_address,t_struct(Prediction)1803_storage)": {
+        "encoding": "mapping",
+        "key": "t_address",
+        "label": "mapping(address => struct VolatilityLottery.Prediction)",
+        "numberOfBytes": "32",
+        "value": "t_struct(Prediction)1803_storage"
+      },
+      "t_mapping(t_uint256,t_array(t_address)dyn_storage)": {
+        "encoding": "mapping",
+        "key": "t_uint256",
+        "label": "mapping(uint256 => address[])",
+        "numberOfBytes": "32",
+        "value": "t_array(t_address)dyn_storage"
+      },
+      "t_mapping(t_uint256,t_mapping(t_address,t_struct(Prediction)1803_storage))": {
+        "encoding": "mapping",
+        "key": "t_uint256",
+        "label": "mapping(uint256 => mapping(address => struct VolatilityLottery.Prediction))",
+        "numberOfBytes": "32",
+        "value": "t_mapping(t_address,t_struct(Prediction)1803_storage)"
+      },
+      "t_mapping(t_uint256,t_struct(Round)1796_storage)": {
+        "encoding": "mapping",
+        "key": "t_uint256",
+        "label": "mapping(uint256 => struct VolatilityLottery.Round)",
+        "numberOfBytes": "32",
+        "value": "t_struct(Round)1796_storage"
+      },
+      "t_string_storage": {
+        "encoding": "bytes",
+        "label": "string",
+        "numberOfBytes": "32"
+      },
+      "t_struct(Prediction)1803_storage": {
+        "encoding": "inplace",
+        "label": "struct VolatilityLottery.Prediction",
+        "members": [
+          {
+            "astId": 1798,
+            "contract": "contracts/VolatilityLottery.sol:VolatilityLottery",
+            "label": "isHighVolatility",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_bool"
+          },
+          {
+            "astId": 1800,
+            "contract": "contracts/VolatilityLottery.sol:VolatilityLottery",
+            "label": "amount",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 1802,
+            "contract": "contracts/VolatilityLottery.sol:VolatilityLottery",
+            "label": "hasClaimed",
+            "offset": 0,
+            "slot": "2",
+            "type": "t_bool"
+          }
+        ],
+        "numberOfBytes": "96"
+      },
+      "t_struct(Round)1796_storage": {
+        "encoding": "inplace",
+        "label": "struct VolatilityLottery.Round",
+        "members": [
+          {
+            "astId": 1775,
+            "contract": "contracts/VolatilityLottery.sol:VolatilityLottery",
+            "label": "startTime",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 1777,
+            "contract": "contracts/VolatilityLottery.sol:VolatilityLottery",
+            "label": "endTime",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 1779,
+            "contract": "contracts/VolatilityLottery.sol:VolatilityLottery",
+            "label": "startPrice",
+            "offset": 0,
+            "slot": "2",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 1781,
+            "contract": "contracts/VolatilityLottery.sol:VolatilityLottery",
+            "label": "endPrice",
+            "offset": 0,
+            "slot": "3",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 1783,
+            "contract": "contracts/VolatilityLottery.sol:VolatilityLottery",
+            "label": "actualVolatility",
+            "offset": 0,
+            "slot": "4",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 1785,
+            "contract": "contracts/VolatilityLottery.sol:VolatilityLottery",
+            "label": "isHighVolatility",
+            "offset": 0,
+            "slot": "5",
+            "type": "t_bool"
+          },
+          {
+            "astId": 1787,
+            "contract": "contracts/VolatilityLottery.sol:VolatilityLottery",
+            "label": "isFinalized",
+            "offset": 1,
+            "slot": "5",
+            "type": "t_bool"
+          },
+          {
+            "astId": 1789,
+            "contract": "contracts/VolatilityLottery.sol:VolatilityLottery",
+            "label": "totalPot",
+            "offset": 0,
+            "slot": "6",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 1791,
+            "contract": "contracts/VolatilityLottery.sol:VolatilityLottery",
+            "label": "highVolatilityPot",
+            "offset": 0,
+            "slot": "7",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 1793,
+            "contract": "contracts/VolatilityLottery.sol:VolatilityLottery",
+            "label": "lowVolatilityPot",
+            "offset": 0,
+            "slot": "8",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 1795,
+            "contract": "contracts/VolatilityLottery.sol:VolatilityLottery",
+            "label": "jackpotWinner",
+            "offset": 0,
+            "slot": "9",
+            "type": "t_address"
+          }
+        ],
+        "numberOfBytes": "320"
+      },
+      "t_uint256": {
+        "encoding": "inplace",
+        "label": "uint256",
+        "numberOfBytes": "32"
+      }
+    }
+  }
+}
