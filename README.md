@@ -1,4 +1,4 @@
-# 🧨 VolatilityLottery
+# 🧨 Volatility Lottery Game
 
 A decentralized lottery that triggers rounds based on real-time price volatility, built natively on **Flare's enshrined protocols**.
 
