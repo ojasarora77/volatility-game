@@ -1,80 +1,108 @@
-# 🏗 Scaffold-ETH 2
+# 🧨 VolatilityLottery
 
-<h4 align="center">
-  <a href="https://docs.scaffoldeth.io">Documentation</a> |
-  <a href="https://scaffoldeth.io">Website</a>
-</h4>
+A decentralized lottery that triggers rounds based on real-time price volatility, built natively on **Flare's enshrined protocols**.
 
-🧪 An open-source, up-to-date toolkit for building decentralized applications (dapps) on the Ethereum blockchain. It's designed to make it easier for developers to create and deploy smart contracts and build user interfaces that interact with those contracts.
+---
 
-⚙️ Built using NextJS, RainbowKit, Hardhat, Wagmi, Viem, and Typescript.
+## 🚀 Overview
 
-- ✅ **Contract Hot Reload**: Your frontend auto-adapts to your smart contract as you edit it.
-- 🪝 **[Custom hooks](https://docs.scaffoldeth.io/hooks/)**: Collection of React hooks wrapper around [wagmi](https://wagmi.sh/) to simplify interactions with smart contracts with typescript autocompletion.
-- 🧱 [**Components**](https://docs.scaffoldeth.io/components/): Collection of common web3 components to quickly build your frontend.
-- 🔥 **Burner Wallet & Local Faucet**: Quickly test your application with a burner wallet and local faucet.
-- 🔐 **Integration with Wallet Providers**: Connect to different wallet providers and interact with the Ethereum network.
+**VolatilityLottery** is a fully on-chain lottery system where:
+- Users pay an **entry fee** to participate.
+- A new round starts when triggered by price volatility exceeding a threshold.
+- Winners are selected **fairly and randomly** using Flare’s secure randomness provider.
 
-![Debug Contracts tab](https://github.com/scaffold-eth/scaffold-eth-2/assets/55535804/b237af0c-5027-4849-a5c1-2e31495cccb1)
+The system autonomously:
+- Fetches **finalized price data** using **Flare FTSO (Flare Time Series Oracle)**.
+- Ensures verified data integrity using the **Flare Finalization Data Connector (FDC)**.
+- Picks winners using **Flare’s native Random Number Generator (RNG)** for unbiased randomness.
 
-## Requirements
+---
 
-Before you begin, you need to install the following tools:
+## 🛠️ Built With
+- [eth-scafflold](https://scaffoldeth.io/) 
+- [Hardhat](https://hardhat.org/)
+- [Flare Coston2 Testnet](https://docs.flare.network/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [ethers.js](https://docs.ethers.org/)
 
-- [Node (>= v20.18.3)](https://nodejs.org/en/download/)
-- Yarn ([v1](https://classic.yarnpkg.com/en/docs/install/) or [v2+](https://yarnpkg.com/getting-started/install))
-- [Git](https://git-scm.com/downloads)
+---
 
-## Quickstart
+## 📡 Why Flare?
 
-To get started with Scaffold-ETH 2, follow the steps below:
+This project fully embraces Flare's enshrined protocols:
+- **FTSO**: To retrieve real-time, finality-assured asset price feeds and detect significant market volatility.
+- **FDC (Finalization Data Connector)**: To verify that the price data is finalized and trusted before triggering a round.
+- **Flare Random Number Generator**: To select the lottery winner in a verifiably fair manner, free from miner or user manipulation.
 
-1. Install dependencies if it was skipped in CLI:
+By combining these protocols, **VolatilityLottery** ensures that the dApp is **trustless**, **autonomous**, and **provably fair**, showcasing the power of building on Flare.
 
+---
+
+## 🌐 Deployment on Flare
+
+The smart contract is deployed on the **Coston2 Flare Testnet**.
+
+## 📦 How to Run Locally
+Clone the repo:
+
+```bash
+git clone https://github.com/ojasarora77/volatility-game.git
+cd volatility-game
 ```
-cd my-dapp-example
+Install dependencies and run the project 
+
+```bash
 yarn install
-```
-
-2. Run a local network in the first terminal:
-
-```
-yarn chain
-```
-
-This command starts a local Ethereum network using Hardhat. The network runs on your local machine and can be used for testing and development. You can customize the network configuration in `packages/hardhat/hardhat.config.ts`.
-
-3. On a second terminal, deploy the test contract:
-
-```
-yarn deploy
-```
-
-This command deploys a test smart contract to the local network. The contract is located in `packages/hardhat/contracts` and can be modified to suit your needs. The `yarn deploy` command uses the deploy script located in `packages/hardhat/deploy` to deploy the contract to the network. You can also customize the deploy script.
-
-4. On a third terminal, start your NextJS app:
-
-```
 yarn start
+# The app will be available at http://localhost:3000
 ```
 
-Visit your app on: `http://localhost:3000`. You can interact with your smart contract using the `Debug Contracts` page. You can tweak the app config in `packages/nextjs/scaffold.config.ts`.
+## 🎮 How to Play
 
-Run smart contract test with `yarn hardhat:test`
+### 1. Get a Wallet
 
-- Edit your smart contracts in `packages/hardhat/contracts`
-- Edit your frontend homepage at `packages/nextjs/app/page.tsx`. For guidance on [routing](https://nextjs.org/docs/app/building-your-application/routing/defining-routes) and configuring [pages/layouts](https://nextjs.org/docs/app/building-your-application/routing/pages-and-layouts) checkout the Next.js documentation.
-- Edit your deployment scripts in `packages/hardhat/deploy`
+- Download [MetaMask](https://metamask.io/) or any wallet that supports custom RPC networks.
 
+### 2. Add Flare Coston2 Testnet
 
-## Documentation
+Add the **Coston2** testnet to your wallet manually:
 
-Visit our [docs](https://docs.scaffoldeth.io) to learn how to start building with Scaffold-ETH 2.
+| Field            | Value                                               |
+|------------------|-----------------------------------------------------|
+| Network Name     | Flare Coston2 Testnet                               |
+| RPC URL          | https://coston2-api.flare.network/ext/C/rpc         |
+| Chain ID         | 114                                                 |
+| Currency Symbol  | FLR                                                 |
+| Block Explorer   | https://coston2-explorer.flare.network              |
 
-To know more about its features, check out our [website](https://scaffoldeth.io).
+OR use [Chainlist](https://chainlist.org/) to add it automatically.
 
-## Contributing to Scaffold-ETH 2
+---
 
-We welcome contributions to Scaffold-ETH 2!
+### 3. Get Free Testnet FLR
 
-Please see [CONTRIBUTING.MD](https://github.com/scaffold-eth/scaffold-eth-2/blob/main/CONTRIBUTING.md) for more information and guidelines for contributing to Scaffold-ETH 2.
+- Visit the [Flare Coston2 Faucet](https://faucet.towolabs.com/) and claim free FLR.
+- Fund your wallet with enough testnet FLR for gas and entry fees.
+
+---
+
+### 4. Enter the Lottery
+
+- Send the required **entry fee** (e.g., `1 FLR`) directly to the deployed **VolatilityLottery** contract address.
+- The contract automatically records your participation.
+
+Example using MetaMask:
+- Open MetaMask.
+- Click **Send**.
+- Paste the VolatilityLottery contract address.
+- Enter the amount (entry fee).
+- Confirm the transaction.
+
+---
+
+### 5. Wait for Volatility
+
+- The system monitors asset volatility using **Flare's FTSO**.
+- Once volatility crosses a threshold, the round is automatically triggered.
+- A random winner is selected using **Flare’s native RNG**.
+- If you win, the prize will be automatically distributed to your wallet!
