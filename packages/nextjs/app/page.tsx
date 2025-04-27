@@ -7,6 +7,7 @@ import type { NextPage } from "next";
 import { formatEther, parseEther } from "viem";
 import { useAccount, useReadContract, useWriteContract, useWaitForTransactionReceipt } from "wagmi";
 import { Address, Balance } from "~~/components/scaffold-eth";
+import { useFlarePrices } from "~~/hooks/flare/useFlarePrices";
 import { notification } from "~~/utils/scaffold-eth";
 import deployedContracts from "~~/contracts/deployedContracts";
 
@@ -15,6 +16,9 @@ const Home: NextPage = () => {
   const [timeLeft, setTimeLeft] = useState<number>(0);
   const [lotteryAmount, setLotteryAmount] = useState<string>("1");
   const [totalPrizePool, setTotalPrizePool] = useState<string>("0");
+  
+  // Get price feeds from Flare
+  const { flrUsd, btcUsd, ethUsd, refreshPrices } = useFlarePrices();
 
   // Get contract info
   const contractInfo = deployedContracts[114]?.VolatilityLottery;
@@ -211,8 +215,9 @@ const Home: NextPage = () => {
       refetchParticipantBalance();
       refetchIsRoundActive();
       refetchRoundId();
+      refreshPrices(); // Refresh prices when a transaction is confirmed
     }
-  }, [isConfirmed, txHash, refetchLotteryEndTime, refetchLotteryThreshold, refetchParticipantBalance, refetchIsRoundActive, refetchRoundId]);
+  }, [isConfirmed, txHash, refetchLotteryEndTime, refetchLotteryThreshold, refetchParticipantBalance, refetchIsRoundActive, refetchRoundId, refreshPrices]);
 
   // Timer for lottery countdown
   useEffect(() => {
@@ -540,16 +545,46 @@ const Home: NextPage = () => {
                 <div className="mt-2 grid grid-cols-3 gap-2">
                   <div className="stat p-2 rounded-lg" style={{ backgroundColor: "white" }}>
                     <div className="stat-title text-xs" style={{ color: "#d1456f" }}>FLR/USD</div>
-                    <div className="stat-value text-sm" style={{ color: "#ff4791" }}>Live</div>
+                    <div className="stat-value text-sm" style={{ color: "#ff4791" }}>
+                      {flrUsd.isLoading ? (
+                        <span className="loading loading-spinner loading-xs"></span>
+                      ) : (
+                        `$${parseFloat(flrUsd.price).toFixed(4)}`
+                      )}
+                    </div>
                   </div>
                   <div className="stat p-2 rounded-lg" style={{ backgroundColor: "white" }}>
                     <div className="stat-title text-xs" style={{ color: "#d1456f" }}>BTC/USD</div>
-                    <div className="stat-value text-sm" style={{ color: "#ff4791" }}>Live</div>
+                    <div className="stat-value text-sm" style={{ color: "#ff4791" }}>
+                      {btcUsd.isLoading ? (
+                        <span className="loading loading-spinner loading-xs"></span>
+                      ) : (
+                        `$${parseFloat(btcUsd.price).toFixed(0)}`
+                      )}
+                    </div>
                   </div>
                   <div className="stat p-2 rounded-lg" style={{ backgroundColor: "white" }}>
                     <div className="stat-title text-xs" style={{ color: "#d1456f" }}>ETH/USD</div>
-                    <div className="stat-value text-sm" style={{ color: "#ff4791" }}>Live</div>
+                    <div className="stat-value text-sm" style={{ color: "#ff4791" }}>
+                      {ethUsd.isLoading ? (
+                        <span className="loading loading-spinner loading-xs"></span>
+                      ) : (
+                        `$${parseFloat(ethUsd.price).toFixed(0)}`
+                      )}
+                    </div>
                   </div>
+                </div>
+                <div className="text-right mt-2">
+                  <button 
+                    onClick={refreshPrices}
+                    className="btn btn-xs"
+                    style={{ backgroundColor: "#ffd6e7", color: "#d1456f", borderColor: "#ffd6e7" }}
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                    </svg>
+                    Refresh
+                  </button>
                 </div>
               </div>
             </div>
