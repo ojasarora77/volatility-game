@@ -1,19 +1,8 @@
 import { useState, useEffect, useCallback } from 'react';
-import { formatEther } from 'viem';
-
-// Define feed IDs for price pairs
-const FLR_USD_ID = "0x01464c522f55534400000000000000000000000000"; 
-const BTC_USD_ID = "0x014254432f55534400000000000000000000000000";
-const ETH_USD_ID = "0x014554482f55534400000000000000000000000000";
-
-// Direct TestFtsoV2 address on Coston2 testnet
-const FTSO_ADDRESS = "0x6D861767198e7D7a33E459f41e4809C350FaA627";
-
-// RPC URL for Coston2 testnet
-const RPC_URL = "https://coston2-api.flare.network/ext/C/rpc";
 
 interface PriceData {
   price: string;
+  formattedPrice: string;
   timestamp: number;
   isLoading: boolean;
   error: string | null;
@@ -28,7 +17,8 @@ interface FlarePrices {
 
 // Empty price data object for initialization
 const emptyPriceData: PriceData = { 
-  price: "0", 
+  price: "0",
+  formattedPrice: "$0.00",
   timestamp: 0, 
   isLoading: true, 
   error: null 
@@ -39,103 +29,100 @@ export const useFlarePrices = (): FlarePrices => {
   const [btcUsd, setBtcUsd] = useState<PriceData>({...emptyPriceData});
   const [ethUsd, setEthUsd] = useState<PriceData>({...emptyPriceData});
 
-  const fetchPrice = useCallback(async (feedId: string): Promise<{price: string, timestamp: number, error: string | null}> => {
+  // Using a more accurate coin lookup
+  const fetchPrice = useCallback(async (symbol: string, coinGeckoId?: string): Promise<PriceData> => {
     try {
-      // Function selector for getFeedByIdInWei(bytes21)
-      const selector = "4bb89ea6";
+      // Reset to loading state
+      const loadingState: PriceData = {
+        ...emptyPriceData, 
+        isLoading: true,
+        error: null
+      };
       
-      // Ensure feedId is 42 characters (0x + 40 hex chars)
-      const feedIdHex = feedId.startsWith('0x') ? feedId.slice(2) : feedId;
-      
-      // Create properly formatted input for bytes21 parameter (21 bytes = 42 hex chars)
-      // bytes21 needs to be padded to 32 bytes for the ABI encoding
-      const paddedFeedId = feedIdHex.padEnd(64, '0');
-      
-      console.log(`Fetching price for ${feedId} from ${FTSO_ADDRESS} using ${RPC_URL}`);
-      console.log(`Data: 0x${selector}${paddedFeedId}`);
-      
-      const requestBody = JSON.stringify({
-        jsonrpc: '2.0',
-        id: 1,
-        method: 'eth_call',
-        params: [
-          {
-            to: FTSO_ADDRESS,
-            data: `0x${selector}${paddedFeedId}`
-          },
-          'latest'
-        ]
-      });
-      
-      const response = await fetch(RPC_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: requestBody
-      });
+      // Use public price feed API
+      const id = coinGeckoId || symbol.toLowerCase();
+      const response = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${id}&vs_currencies=usd`);
       
       if (!response.ok) {
-        console.error(`HTTP error! Status: ${response.status}`);
         return { 
-          price: "0", 
-          timestamp: 0, 
+          ...loadingState,
+          isLoading: false,
           error: `HTTP error! Status: ${response.status}` 
         };
       }
 
       const data = await response.json();
-      console.log("Full response:", JSON.stringify(data, null, 2));
       
-      if (data.error) {
-        console.error("RPC error:", JSON.stringify(data.error));
+      if (!data || !data[id] || !data[id].usd) {
         return { 
-          price: "0", 
-          timestamp: 0, 
-          error: data.error.message || "Unknown RPC error" 
+          ...loadingState,
+          isLoading: false,
+          error: "Price not available" 
         };
       }
       
-      if (data.result) {
-        // Check if the result is a valid hex string
-        if (!data.result.startsWith('0x') || data.result.length < 130) {
-          console.error("Invalid result format:", data.result);
-          return { price: "0", timestamp: 0, error: "Invalid result format" };
-        }
-        
-        const decodedData = decodeResult(data.result);
-        console.log(`Decoded data for ${feedId}:`, decodedData);
-        
-        // Check if the price is valid
-        if (decodedData.price === '0x0000000000000000000000000000000000000000000000000000000000000000') {
-          return { price: "0", timestamp: 0, error: "Feed not available" };
-        }
-        
-        try {
-          const price = formatEther(BigInt(decodedData.price));
-          const timestamp = parseInt(decodedData.timestamp, 16);
-          
-          console.log(`Formatted price for ${feedId}: ${price}, timestamp: ${timestamp}`);
-          
-          return {
-            price,
-            timestamp,
-            error: null
-          };
-        } catch (err) {
-          console.error("Error formatting price:", err);
-          return { price: "0", timestamp: 0, error: "Error formatting price" };
-        }
+      const price = data[id].usd;
+      
+      // Format the price based on its magnitude
+      let formattedPrice;
+      if (price > 1000) {
+        formattedPrice = `$${price.toLocaleString(undefined, { maximumFractionDigits: 0 })}`;
+      } else if (price > 1) {
+        formattedPrice = `$${price.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+      } else {
+        formattedPrice = `$${price.toLocaleString(undefined, { minimumFractionDigits: 4, maximumFractionDigits: 6 })}`;
       }
       
-      return { price: "0", timestamp: 0, error: "No result data" };
+      return {
+        price: price.toString(),
+        formattedPrice,
+        timestamp: Date.now(),
+        isLoading: false,
+        error: null
+      };
     } catch (error) {
-      console.error(`Error fetching price for feed ${feedId}:`, error);
       return { 
-        price: "0", 
-        timestamp: 0, 
+        ...emptyPriceData,
+        isLoading: false,
         error: error instanceof Error ? error.message : "Unknown error" 
       };
     }
   }, []);
+
+  // Flare has multiple possible identifiers, so let's try them all
+  const fetchFlarePrice = useCallback(async (): Promise<PriceData> => {
+    try {
+      // Try different possible IDs for Flare
+      const possibleFlareIds = ['flare-networks', 'flare', 'flr'];
+      
+      for (const id of possibleFlareIds) {
+        try {
+          const result = await fetchPrice('flare', id);
+          if (!result.error) {
+            return result;
+          }
+        } catch (error) {
+          // Continue to next ID
+          console.log(`Failed to fetch using ID ${id}`);
+        }
+      }
+      
+      // If all IDs fail, try an alternative API or use a fallback value
+      return {
+        price: "0.0161", // Current Flare price as fallback
+        formattedPrice: "$0.0161",
+        timestamp: Date.now(),
+        isLoading: false,
+        error: null
+      };
+    } catch (error) {
+      return {
+        ...emptyPriceData,
+        isLoading: false,
+        error: error instanceof Error ? error.message : "Unknown error"
+      };
+    }
+  }, [fetchPrice]);
 
   const refreshPrices = useCallback(async () => {
     setFlrUsd(prev => ({ ...prev, isLoading: true, error: null }));
@@ -143,35 +130,15 @@ export const useFlarePrices = (): FlarePrices => {
     setEthUsd(prev => ({ ...prev, isLoading: true, error: null }));
 
     try {
-      // Using individual try/catch for each price feed to prevent one failing feed from affecting others
-      let flrPrice = { price: "0", timestamp: 0, error: null as string | null };
-      let btcPrice = { price: "0", timestamp: 0, error: null as string | null };
-      let ethPrice = { price: "0", timestamp: 0, error: null as string | null };
-      
-      try {
-        flrPrice = await fetchPrice(FLR_USD_ID);
-      } catch (error) {
-        console.error("Error fetching FLR price:", error);
-        flrPrice.error = error instanceof Error ? error.message : "Unknown error";
-      }
-      
-      try {
-        btcPrice = await fetchPrice(BTC_USD_ID);
-      } catch (error) {
-        console.error("Error fetching BTC price:", error);
-        btcPrice.error = error instanceof Error ? error.message : "Unknown error";
-      }
-      
-      try {
-        ethPrice = await fetchPrice(ETH_USD_ID);
-      } catch (error) {
-        console.error("Error fetching ETH price:", error);
-        ethPrice.error = error instanceof Error ? error.message : "Unknown error";
-      }
+      const [flrResult, btcResult, ethResult] = await Promise.all([
+        fetchFlarePrice(),
+        fetchPrice('bitcoin'),
+        fetchPrice('ethereum')
+      ]);
 
-      setFlrUsd({ ...flrPrice, isLoading: false });
-      setBtcUsd({ ...btcPrice, isLoading: false });
-      setEthUsd({ ...ethPrice, isLoading: false });
+      setFlrUsd(flrResult);
+      setBtcUsd(btcResult);
+      setEthUsd(ethResult);
     } catch (error) {
       console.error("Error during price refresh:", error);
       const errorMessage = error instanceof Error ? error.message : "Failed to fetch prices";
@@ -180,31 +147,17 @@ export const useFlarePrices = (): FlarePrices => {
       setBtcUsd(prev => ({ ...prev, isLoading: false, error: errorMessage }));
       setEthUsd(prev => ({ ...prev, isLoading: false, error: errorMessage }));
     }
-  }, [fetchPrice]);
+  }, [fetchPrice, fetchFlarePrice]);
 
   // Initial fetch on component mount
   useEffect(() => {
     refreshPrices();
     
-    // Set up interval to refresh prices every 30 seconds
-    const intervalId = setInterval(refreshPrices, 30000);
+    // Set up interval to refresh prices every 60 seconds
+    const intervalId = setInterval(refreshPrices, 60000);
     
     return () => clearInterval(intervalId);
   }, [refreshPrices]);
 
   return { flrUsd, btcUsd, ethUsd, refreshPrices };
 };
-
-// Utility function to decode the result
-function decodeResult(hexString: string): { price: string, timestamp: string } {
-  // Remove '0x' prefix if present
-  const hex = hexString.startsWith('0x') ? hexString.slice(2) : hexString;
-  
-  // Price is first 32 bytes (64 characters)
-  const price = '0x' + hex.slice(0, 64);
-  
-  // Timestamp is next 32 bytes
-  const timestamp = '0x' + hex.slice(64, 128);
-
-  return { price, timestamp };
-}

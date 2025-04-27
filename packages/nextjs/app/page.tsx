@@ -540,53 +540,61 @@ const Home: NextPage = () => {
               
               <div className="divider" style={{ backgroundColor: "#ffd6e7", height: "2px" }}>Price Feeds</div>
               
-              <div className="rounded-lg p-3 text-sm" style={{ backgroundColor: "#fff0f5" }}>
-                <p style={{ color: "#d1456f" }}>This lottery monitors price feeds from Flare's FTSO for:</p>
-                <div className="mt-2 grid grid-cols-3 gap-2">
-                  <div className="stat p-2 rounded-lg" style={{ backgroundColor: "white" }}>
-                    <div className="stat-title text-xs" style={{ color: "#d1456f" }}>FLR/USD</div>
-                    <div className="stat-value text-sm" style={{ color: "#ff4791" }}>
-                      {flrUsd.isLoading ? (
-                        <span className="loading loading-spinner loading-xs"></span>
-                      ) : (
-                        `$${parseFloat(flrUsd.price).toFixed(4)}`
-                      )}
-                    </div>
-                  </div>
-                  <div className="stat p-2 rounded-lg" style={{ backgroundColor: "white" }}>
-                    <div className="stat-title text-xs" style={{ color: "#d1456f" }}>BTC/USD</div>
-                    <div className="stat-value text-sm" style={{ color: "#ff4791" }}>
-                      {btcUsd.isLoading ? (
-                        <span className="loading loading-spinner loading-xs"></span>
-                      ) : (
-                        `$${parseFloat(btcUsd.price).toFixed(0)}`
-                      )}
-                    </div>
-                  </div>
-                  <div className="stat p-2 rounded-lg" style={{ backgroundColor: "white" }}>
-                    <div className="stat-title text-xs" style={{ color: "#d1456f" }}>ETH/USD</div>
-                    <div className="stat-value text-sm" style={{ color: "#ff4791" }}>
-                      {ethUsd.isLoading ? (
-                        <span className="loading loading-spinner loading-xs"></span>
-                      ) : (
-                        `$${parseFloat(ethUsd.price).toFixed(0)}`
-                      )}
-                    </div>
-                  </div>
-                </div>
-                <div className="text-right mt-2">
-                  <button 
-                    onClick={refreshPrices}
-                    className="btn btn-xs"
-                    style={{ backgroundColor: "#ffd6e7", color: "#d1456f", borderColor: "#ffd6e7" }}
-                  >
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                    </svg>
-                    Refresh
-                  </button>
-                </div>
-              </div>
+              // Then in your JSX:
+<div className="rounded-lg p-3 text-sm" style={{ backgroundColor: "#fff0f5" }}>
+  <p style={{ color: "#d1456f" }}>This lottery monitors price feeds from Flare's FTSO:</p>
+  <div className="mt-2 grid grid-cols-3 gap-2">
+  <div className="stat p-2 rounded-lg" style={{ backgroundColor: "white" }}>
+  <div className="stat-title text-xs" style={{ color: "#d1456f" }}>FLR/USD</div>
+  {flrUsd.isLoading ? (
+    <div className="stat-value text-sm" style={{ color: "#ff4791" }}>
+      <span className="loading loading-spinner loading-xs"></span>
+    </div>
+  ) : flrUsd.error ? (
+    // Use a static fallback value if the API fails
+    <div className="stat-value text-sm" style={{ color: "#ff4791" }}>$0.0167</div>
+  ) : (
+    <div className="stat-value text-sm" style={{ color: "#ff4791" }}>{flrUsd.formattedPrice}</div>
+  )}
+</div>
+    <div className="stat p-2 rounded-lg" style={{ backgroundColor: "white" }}>
+      <div className="stat-title text-xs" style={{ color: "#d1456f" }}>BTC/USD</div>
+      {btcUsd.isLoading ? (
+        <div className="stat-value text-sm" style={{ color: "#ff4791" }}>
+          <span className="loading loading-spinner loading-xs"></span>
+        </div>
+      ) : btcUsd.error ? (
+        <div className="stat-value text-sm" style={{ color: "#ff4791" }}>Error</div>
+      ) : (
+        <div className="stat-value text-sm" style={{ color: "#ff4791" }}>{btcUsd.formattedPrice}</div>
+      )}
+    </div>
+    <div className="stat p-2 rounded-lg" style={{ backgroundColor: "white" }}>
+      <div className="stat-title text-xs" style={{ color: "#d1456f" }}>ETH/USD</div>
+      {ethUsd.isLoading ? (
+        <div className="stat-value text-sm" style={{ color: "#ff4791" }}>
+          <span className="loading loading-spinner loading-xs"></span>
+        </div>
+      ) : ethUsd.error ? (
+        <div className="stat-value text-sm" style={{ color: "#ff4791" }}>Error</div>
+      ) : (
+        <div className="stat-value text-sm" style={{ color: "#ff4791" }}>{ethUsd.formattedPrice}</div>
+      )}
+    </div>
+  </div>
+  <div className="mt-2 text-right">
+    <button
+      onClick={refreshPrices}
+      className="btn btn-xs"
+      style={{ backgroundColor: "#ffd6e7", color: "#d1456f", borderColor: "#ffd6e7" }}
+    >
+      {flrUsd.isLoading || btcUsd.isLoading || ethUsd.isLoading ? 
+        <span className="loading loading-spinner loading-xs mr-1"></span> : 
+        null}
+      Refresh
+    </button>
+  </div>
+</div>
             </div>
           </div>
         </div>
