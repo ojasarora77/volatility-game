@@ -7,58 +7,11 @@ import { GenericContractsDeclaration } from "~~/utils/scaffold-eth/contract";
 const deployedContracts = {
   114: {
     VolatilityLottery: {
-      address: "0x5871286045582C2F98077BFfBE1D76442ECA4389",
+      address: "0x0e06e51ABB2E402be0e108E50D20005EF2Ea89F3",
       abi: [
-        {
-          inputs: [
-            {
-              internalType: "address",
-              name: "_ftsoRegistry",
-              type: "address",
-            },
-            {
-              internalType: "address",
-              name: "_randomProvider",
-              type: "address",
-            },
-            {
-              internalType: "address",
-              name: "_fdcHub",
-              type: "address",
-            },
-            {
-              internalType: "uint256",
-              name: "_entryFee",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "_volatilityThreshold",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "_roundDuration",
-              type: "uint256",
-            },
-            {
-              internalType: "string",
-              name: "_pricePairSymbol",
-              type: "string",
-            },
-          ],
-          stateMutability: "nonpayable",
-          type: "constructor",
-        },
         {
           anonymous: false,
           inputs: [
-            {
-              indexed: true,
-              internalType: "uint256",
-              name: "roundId",
-              type: "uint256",
-            },
             {
               indexed: false,
               internalType: "address",
@@ -68,11 +21,11 @@ const deployedContracts = {
             {
               indexed: false,
               internalType: "uint256",
-              name: "amount",
+              name: "prizeAmount",
               type: "uint256",
             },
           ],
-          name: "JackpotWinnerSelected",
+          name: "LotteryEnded",
           type: "event",
         },
         {
@@ -80,45 +33,8 @@ const deployedContracts = {
           inputs: [
             {
               indexed: true,
-              internalType: "uint256",
-              name: "roundId",
-              type: "uint256",
-            },
-            {
-              indexed: true,
               internalType: "address",
-              name: "player",
-              type: "address",
-            },
-            {
-              indexed: false,
-              internalType: "bool",
-              name: "isHighVolatility",
-              type: "bool",
-            },
-            {
-              indexed: false,
-              internalType: "uint256",
-              name: "amount",
-              type: "uint256",
-            },
-          ],
-          name: "PredictionMade",
-          type: "event",
-        },
-        {
-          anonymous: false,
-          inputs: [
-            {
-              indexed: true,
-              internalType: "uint256",
-              name: "roundId",
-              type: "uint256",
-            },
-            {
-              indexed: true,
-              internalType: "address",
-              name: "player",
+              name: "participant",
               type: "address",
             },
             {
@@ -128,38 +44,20 @@ const deployedContracts = {
               type: "uint256",
             },
           ],
-          name: "RewardClaimed",
+          name: "LotteryEntered",
           type: "event",
         },
         {
           anonymous: false,
           inputs: [
             {
-              indexed: true,
-              internalType: "uint256",
-              name: "roundId",
-              type: "uint256",
-            },
-            {
               indexed: false,
               internalType: "uint256",
-              name: "endPrice",
+              name: "startTime",
               type: "uint256",
-            },
-            {
-              indexed: false,
-              internalType: "uint256",
-              name: "volatility",
-              type: "uint256",
-            },
-            {
-              indexed: false,
-              internalType: "bool",
-              name: "isHighVolatility",
-              type: "bool",
             },
           ],
-          name: "RoundFinalized",
+          name: "LotteryStarted",
           type: "event",
         },
         {
@@ -180,7 +78,7 @@ const deployedContracts = {
             {
               indexed: false,
               internalType: "uint256",
-              name: "startPrice",
+              name: "endTime",
               type: "uint256",
             },
           ],
@@ -188,153 +86,92 @@ const deployedContracts = {
           type: "event",
         },
         {
-          inputs: [
+          inputs: [],
+          name: "BTC_USD_ID",
+          outputs: [
             {
-              internalType: "uint256",
-              name: "_roundId",
-              type: "uint256",
+              internalType: "bytes21",
+              name: "",
+              type: "bytes21",
             },
           ],
-          name: "claimRewards",
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "ETH_USD_ID",
+          outputs: [
+            {
+              internalType: "bytes21",
+              name: "",
+              type: "bytes21",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "FLR_USD_ID",
+          outputs: [
+            {
+              internalType: "bytes21",
+              name: "",
+              type: "bytes21",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "checkAndEndRound",
           outputs: [],
           stateMutability: "nonpayable",
           type: "function",
         },
         {
           inputs: [],
-          name: "entryFee",
-          outputs: [
-            {
-              internalType: "uint256",
-              name: "",
-              type: "uint256",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [],
-          name: "fdcHub",
-          outputs: [
-            {
-              internalType: "contract IFdcHub",
-              name: "",
-              type: "address",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [],
-          name: "finalizeRound",
+          name: "endLottery",
           outputs: [],
           stateMutability: "nonpayable",
           type: "function",
         },
         {
-          inputs: [],
-          name: "ftsoRegistry",
-          outputs: [
-            {
-              internalType: "contract IFtsoRegistry",
-              name: "",
-              type: "address",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
           inputs: [
-            {
-              internalType: "uint256",
-              name: "",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "",
-              type: "uint256",
-            },
-          ],
-          name: "highVolatilityPlayers",
-          outputs: [
-            {
-              internalType: "address",
-              name: "",
-              type: "address",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [
-            {
-              internalType: "uint256",
-              name: "",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "",
-              type: "uint256",
-            },
-          ],
-          name: "lowVolatilityPlayers",
-          outputs: [
-            {
-              internalType: "address",
-              name: "",
-              type: "address",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [
-            {
-              internalType: "bool",
-              name: "_isHighVolatility",
-              type: "bool",
-            },
-          ],
-          name: "makePrediction",
-          outputs: [],
-          stateMutability: "payable",
-          type: "function",
-        },
-        {
-          inputs: [
-            {
-              internalType: "uint256",
-              name: "",
-              type: "uint256",
-            },
-            {
-              internalType: "address",
-              name: "",
-              type: "address",
-            },
-          ],
-          name: "predictions",
-          outputs: [
-            {
-              internalType: "bool",
-              name: "isHighVolatility",
-              type: "bool",
-            },
             {
               internalType: "uint256",
               name: "amount",
               type: "uint256",
             },
+          ],
+          name: "enterLottery",
+          outputs: [],
+          stateMutability: "payable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "forceEndRound",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "fundLottery",
+          outputs: [],
+          stateMutability: "payable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "isRoundActive",
+          outputs: [
             {
               internalType: "bool",
-              name: "hasClaimed",
+              name: "",
               type: "bool",
             },
           ],
@@ -343,38 +180,63 @@ const deployedContracts = {
         },
         {
           inputs: [],
-          name: "pricePairSymbol",
-          outputs: [
-            {
-              internalType: "string",
-              name: "",
-              type: "string",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [],
-          name: "randomProvider",
-          outputs: [
-            {
-              internalType: "contract IRandomProvider",
-              name: "",
-              type: "address",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [],
-          name: "roundDuration",
+          name: "lotteryEndTime",
           outputs: [
             {
               internalType: "uint256",
               name: "",
               type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "lotteryThreshold",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          name: "participantBalances",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          name: "participants",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
             },
           ],
           stateMutability: "view",
@@ -397,69 +259,26 @@ const deployedContracts = {
           inputs: [
             {
               internalType: "uint256",
-              name: "",
+              name: "newEndTime",
               type: "uint256",
             },
           ],
-          name: "rounds",
-          outputs: [
+          name: "setLotteryEndTime",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
             {
               internalType: "uint256",
-              name: "startTime",
+              name: "newThreshold",
               type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "endTime",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "startPrice",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "endPrice",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "actualVolatility",
-              type: "uint256",
-            },
-            {
-              internalType: "bool",
-              name: "isHighVolatility",
-              type: "bool",
-            },
-            {
-              internalType: "bool",
-              name: "isFinalized",
-              type: "bool",
-            },
-            {
-              internalType: "uint256",
-              name: "totalPot",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "highVolatilityPot",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "lowVolatilityPot",
-              type: "uint256",
-            },
-            {
-              internalType: "address",
-              name: "jackpotWinner",
-              type: "address",
             },
           ],
-          stateMutability: "view",
+          name: "setLotteryThreshold",
+          outputs: [],
+          stateMutability: "nonpayable",
           type: "function",
         },
         {
@@ -470,16 +289,16 @@ const deployedContracts = {
           type: "function",
         },
         {
-          inputs: [],
-          name: "volatilityThreshold",
-          outputs: [
+          inputs: [
             {
               internalType: "uint256",
-              name: "",
+              name: "amount",
               type: "uint256",
             },
           ],
-          stateMutability: "view",
+          name: "withdrawFunds",
+          outputs: [],
+          stateMutability: "nonpayable",
           type: "function",
         },
       ],
